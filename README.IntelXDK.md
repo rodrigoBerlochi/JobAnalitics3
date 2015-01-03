@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Blank Intel XDK and Apache Cordova Project
 
 See [LICENSE.md][] for license terms and conditions.
@@ -82,7 +81,4 @@ BTW: the "`dev`” prefix refers to "device" in this context, not
 flexible "device ready" detector.
 
   [LICENSE.md]: LICENSE.md
-=======
-JobAnalitics3
-=============
->>>>>>> 47511965e3be54790502ba810e84c415866853e3
+

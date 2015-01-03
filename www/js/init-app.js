@@ -67,7 +67,7 @@ app.initEvents = function() {
     // NOTE: ...you can put other miscellaneous init stuff in this function...
     // NOTE: ...and add whatever else you want to do now that the app has started...
 
-    app.initDebug() ;           // just for debug, not required; keep it if you want it or get rid of it
+    //app.initDebug() ;           // just for debug, not required; keep it if you want it or get rid of it
     app.hideSplashScreen() ;    // after init is good time to remove splash screen; using a splash screen is optional
 
     // app initialization is done
@@ -84,7 +84,7 @@ document.addEventListener("app.Ready", app.initEvents, false) ;
 // Runs after underlying device native code and webview/browser is ready.
 // The following is just for debug, not required; keep it if you want or get rid of it.
 
-app.initDebug = function() {
+/*app.initDebug = function() {
     "use strict" ;
     var fName = "app.initDebug():" ;
     app.consoleLog(fName, "entry") ;
@@ -105,7 +105,7 @@ app.initDebug = function() {
     }
 
     app.consoleLog(fName, "exit") ;
-} ;
+} ;*/
 
 
 

@@ -31,4 +31,9 @@ function myEventHandler() {
 }
 
 
+
+//      document.addEventListener("deviceready", myDeviceReadyListener, false);
+//      document.addEventListener("resume", myResumeListener, false);
+//      document.addEventListener("pause", myPauseListener, false);
+ 
 // ...additional event handlers here...
