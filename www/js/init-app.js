@@ -76,6 +76,8 @@ app.initEvents = function() {
 
     app.consoleLog(fName, "exit") ;
 } ;
+
+
 document.addEventListener("app.Ready", app.initEvents, false) ;
 
 

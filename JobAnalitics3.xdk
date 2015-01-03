@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "https://edge-intel.s3.amazonaws.com/jsapp/production/release-2014-ww45/template-a-blank-cordova/sample.zip",
       "projectGuid": "f472e993-f8cb-4dd2-afe1-3acedc7902c0",
-      "lastModifiedDate": 1420305176090,
+      "lastModifiedDate": 1420320046023,
       "creationDate": 1420305176006
     },
     "sourceDirectory": "www",
@@ -45,6 +45,27 @@
         "selectedState": "Included",
         "data": {},
         "paramvals": {}
+      },
+      {
+        "id": "org.apache.cordova.network-information",
+        "version": "0.2.8",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {}
+      },
+      {
+        "id": "org.apache.cordova.dialogs",
+        "version": "0.2.6",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {}
+      },
+      {
+        "id": "org.apache.cordova.vibration",
+        "version": "0.3.8",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {}
       }
     ],
     "buildConfigurations": {
@@ -55,7 +76,8 @@
         "preferences_": {
           "android-minSdkVersion": "10",
           "android-targetSdkVersion": "19",
-          "android-installLocation": "auto"
+          "android-installLocation": "auto",
+          "Fullscreen": false
         },
         "isActive_": true,
         "appName_": "JobAnalitics3",
@@ -69,8 +91,8 @@
         "cordovaCLIVersion_": "3.5",
         "crosswalkVersion_": "stable",
         "appVersion_": "0.0.1",
-        "appDescription_": "Universal init code for Intel XDK and Cordova device ready detection, as well as within browser.",
-        "appAuthor_": "",
+        "appDescription_": "A mobile client of the InfoJob API, focused on get data from the laboral market and show it as graphics",
+        "appAuthor_": "Rodrigo Nicolas Berlochi",
         "appVersionCode_": "1"
       },
       "Android-Crosswalk": {
