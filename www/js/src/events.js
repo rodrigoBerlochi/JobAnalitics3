@@ -1,0 +1,1 @@
+var Events = _.extend({}, Backbone.Events);

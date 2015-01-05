@@ -48,6 +48,8 @@ app.initEvents = function() {
     // initMyAppCodeNumberOne() ;
     // initMyAppCodeNumberTwo() ;
     // initMyAppCodeNumberEtc() ;
+    
+    this.initBackbone();
 
     // NOTE: initialize your app event handlers, see app.js for a simple event handler example
 
@@ -80,6 +82,24 @@ app.initEvents = function() {
 
 document.addEventListener("app.Ready", app.initEvents, false) ;
 
+
+app.initBackbone = function(){
+    
+    //init models
+    
+    //init view and pass in models
+    
+    //init router
+    
+    Backbone.history.start();
+    
+    this.subscribeEvents();
+};
+
+app.subscribeEvents = function() {
+
+    //Events.on('eventname', callback);
+};
 
 
 // Just a bunch of useful debug console.log() messages.
