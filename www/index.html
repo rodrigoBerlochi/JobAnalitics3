@@ -42,30 +42,77 @@
     <script src="js/vendor/Chart.min.js"></script>
     <script src="js/vendor/toastr.js"></script>
     <script src="js/vendor/backbone.stickit.js"></script>
-    <!--<script src="js/vendor/index.js"></script> TODO: verify if it's needed-->
+   
     <script src="js/vendor/sidebar.js"></script>
+    <script src="js/vendor/index.js"></script> <!--TODO: verify if it's needed-->
 
     <link rel="stylesheet" href="stylesheets/screen.css">
     <link rel="stylesheet" href="css/vendor/topcoat-mobile-dark.css">
-    <link rel="stylesheet" href="css/vendor/topcoat-touch.css">
+<!--    <link rel="stylesheet" href="css/vendor/topcoat-touch.css">-->
     <link rel="stylesheet" href="css/vendor/toastr.css">
     <link rel="stylesheet" href="css/vendor/loader.css">
     <link rel="stylesheet" href="css/vendor/sidebar.css">
     <link rel="stylesheet" href="css/vendor/step.css">
+    <link rel="stylesheet" href="css/vendor/menu.css">
 </head>
 
 
 <body>
+    <div class="ui sidebar left demo vertical inverted labeled icon menu">
+       <a class="item">
+    <i class="home icon"></i>
+    Home
+  </a>
+  <a class="item">
+    <i class="block layout icon"></i>
+    Topics
+  </a>
+    </div>
+    <div class="pusher">
+            
+        
+            <h1 class="align-center">Starting template</h1>
+            <br>
+            <p class="align-center">
+                <input type="button" id="id_btnHello" value="Touch Me">
+            </p>
     
-    <h1 class="align-center">Starting template</h1>
-    <p class="align-center">
-        To use this template as a starter app, start with init-app.js and app.js for your JavaScript code.
-        See the README.md file for more details and the comments inside index.html, app.js and init-app.js.
-    </p>
-    <br>
-    <p class="align-center">
-        <input type="button" id="id_btnHello" value="Touch Me">
-    </p>
+       <!--loader-->
+        <div class="ui segment">
+          <p></p>
+          <div class="ui active dimmer">
+            <div class="ui loader"></div>
+          </div>
+        </div>
+    
+    <!--steps-->
+<!--    <div class="ui vertical steps">
+      <div class="step">
+        <i class="truck icon"></i>
+        <div class="content">
+          <div class="title">Shipping</div>
+          <div class="description">Choose your shipping options</div>
+        </div>
+      </div>
+      <div class="active step">
+        <i class="payment icon"></i>
+        <div class="content">
+          <div class="title">Billing</div>
+          <div class="description">Enter billing information</div>
+        </div>
+      </div>
+      <div class="disabled step">
+        <i class="info icon"></i>
+        <div class="content">
+          <div class="title">Confirm Order</div>
+          <div class="description">Verify order details</div>
+        </div>
+      </div>
+    </div>-->
+    
+    </div>
+    <!--wrapper-->
+
 
     <!-- IMPORTANT: Do not include your weinre script tag as part of your release builds! -->
     <!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work below -->

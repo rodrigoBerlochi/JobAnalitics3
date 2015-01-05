@@ -6,7 +6,7 @@ var ProfileBriefView = Backbone.View.extend({
     
     el: '#wrapper'
     
-    template: $(),
+    template: $('body'),
     
     initialize: function() {
     
