@@ -69,3 +69,10 @@ var ResultSet = Backbone.Model.extend({
 var ParamsModel = Backbone.Model.extend({
 
 });
+
+var LandingModel = Backbone.Model.extend({
+    defaults: {
+        resultsEnabled : false,
+        profileEnabled : false
+    }
+});

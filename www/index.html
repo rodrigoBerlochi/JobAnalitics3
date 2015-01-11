@@ -42,9 +42,10 @@
     <script src="js/vendor/Chart.min.js"></script>
     <script src="js/vendor/toastr.js"></script>
     <script src="js/vendor/backbone.stickit.js"></script>
+    <script src="js/vendor/pageslider.js"></script>
    
     <script src="js/vendor/sidebar.js"></script>
-    <script src="js/vendor/index.js"></script> <!--TODO: verify if it's needed-->
+<!--    <script src="js/vendor/index.js"></script> TODO: verify if it's needed-->
 
     <link rel="stylesheet" href="stylesheets/screen.css">
     <link rel="stylesheet" href="css/vendor/topcoat-mobile-dark.css">
@@ -54,36 +55,39 @@
     <link rel="stylesheet" href="css/vendor/sidebar.css">
     <link rel="stylesheet" href="css/vendor/step.css">
     <link rel="stylesheet" href="css/vendor/menu.css">
+    <link rel="stylesheet" href="css/vendor/pageslider.css">
 </head>
 
 
 <body>
+    
     <div class="ui sidebar left demo vertical inverted labeled icon menu">
        <a class="item">
-    <i class="home icon"></i>
-    Home
-  </a>
-  <a class="item">
-    <i class="block layout icon"></i>
-    Topics
-  </a>
+        <i class="home icon"></i>
+        Home
+      </a>
+      <a class="item">
+        <i class="block layout icon"></i>
+        Topics
+      </a>
     </div>
-    <div class="pusher">
+    
+    <div class="pusher" id="container">
             
         
-            <h1 class="align-center">Starting template</h1>
+           <!-- <h1 class="align-center">Starting template</h1>
             <br>
             <p class="align-center">
                 <input type="button" id="id_btnHello" value="Touch Me">
-            </p>
+            </p>-->
     
        <!--loader-->
-        <div class="ui segment">
+        <!--<div class="ui segment">
           <p></p>
           <div class="ui active dimmer">
             <div class="ui loader"></div>
           </div>
-        </div>
+        </div>-->
     
     <!--steps-->
 <!--    <div class="ui vertical steps">
@@ -125,6 +129,7 @@
     <script src="xhr.js"></script>              <!-- phantom library, needed for XDK CORS -->
     
     <!-- App logic and data -->
+    <script src="templates_target/templates.js"></script>
     <script src="js/src/events.js"></script>
     <script src="js/src/models.js"></script>
     <script src="js/src/router.js"></script>

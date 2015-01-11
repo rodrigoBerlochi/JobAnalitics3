@@ -1,5 +1,15 @@
 this["JST"] = this["JST"] || {};
 
+this["JST"]["templates_src/landing.tpl"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div>\r\n    <header>Header</header>\r\n    <section class="results clickable"> Results</section>\r\n    <section class="profile clickable"> Profile</section>\r\n</div>';
+
+}
+return __p
+};
+
 this["JST"]["templates_src/src1.tpl"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;

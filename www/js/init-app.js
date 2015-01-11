@@ -12,6 +12,8 @@
 window.app = window.app || {} ;         // there should only be one of these...
 
 
+//pageslider accesible
+app.slider = null;
 
 // Set to "true" if you want the console.log messages to appear.
 
@@ -24,6 +26,30 @@ app.consoleLog = function() {           // only emits console.log messages if ap
     }
 } ;
 
+
+app.initBackbone = function(){
+    
+    //init models
+    var profileModel = new ProfileModel();
+    var resultSet = new ResultSet();
+    var paramsModel = new ParamsModel();
+    var landingModel = new LandingModel();
+    
+    //init view and pass in models
+    var landingView = new LandingView({model: landingModel});
+   // var sideMenu = new SideMenu();
+    
+    //init router
+    var router = new appRouter();
+    Backbone.history.start();
+
+    this.subscribeEvents();
+};
+
+app.subscribeEvents = function() {
+
+    //Events.on('eventname', callback);
+};
 
 
 // App init point (runs on custom app.Ready event from init-dev.js).
@@ -49,7 +75,10 @@ app.initEvents = function() {
     // initMyAppCodeNumberTwo() ;
     // initMyAppCodeNumberEtc() ;
     
-    this.initBackbone();
+    //initi pageSlider, it manage page transitions
+    app.slider = new PageSlider($("#container"));
+    
+    app.initBackbone();
 
     // NOTE: initialize your app event handlers, see app.js for a simple event handler example
 
@@ -63,8 +92,8 @@ app.initEvents = function() {
     else                                                            // else, assume touch events available
         evt = "touchend" ;                                          // not optimum, but works
 
-    el = document.getElementById("id_btnHello") ;
-    el.addEventListener(evt, myEventHandler, false) ;
+    /*el = document.getElementById("id_btnHello") ;
+    el.addEventListener(evt, myEventHandler, false) ;*/
 
     // NOTE: ...you can put other miscellaneous init stuff in this function...
     // NOTE: ...and add whatever else you want to do now that the app has started...
@@ -81,25 +110,6 @@ app.initEvents = function() {
 
 
 document.addEventListener("app.Ready", app.initEvents, false) ;
-
-
-app.initBackbone = function(){
-    
-    //init models
-    
-    //init view and pass in models
-    
-    //init router
-    
-    Backbone.history.start();
-    
-    this.subscribeEvents();
-};
-
-app.subscribeEvents = function() {
-
-    //Events.on('eventname', callback);
-};
 
 
 // Just a bunch of useful debug console.log() messages.

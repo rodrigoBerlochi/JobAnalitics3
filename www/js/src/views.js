@@ -1,12 +1,53 @@
+/*var SideMenu = Backbone.View.extend({
+
+    el: '.sidebar',
+    
+    initialize: function() {},
+    
+    events: {
+        'click .hamburger': 'slideMenu'
+    },
+    
+    slideMenu: function(){
+    
+    }
+    
+});*/
+
+var LandingView = Backbone.View.extend({
+
+    el: '#container',
+    
+    events: {},
+    
+    template: JST['templates_src/landing.tpl'],
+    
+    initialize: function() {
+        
+        Events.on('LandingView:show', this.render, this);
+        
+    },
+    
+    render: function() {
+
+        var compiledTpl = this.template(this.model.toJSON());
+            
+        app.slider.slidePage($(compiledTpl));
+    }
+    
+});
+
+
 var ProfileFormView = Backbone.View.extend({
 
 });
 
+
 var ProfileBriefView = Backbone.View.extend({
     
-    el: '#wrapper'
+    el: '#container',
     
-    template: $('body'),
+    //template: 'body',
     
     initialize: function() {
     
@@ -25,6 +66,7 @@ var ProfileBriefView = Backbone.View.extend({
     }
     
 });
+
 
 var ResultSetView = Backbone.View.extend({
 
