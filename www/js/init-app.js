@@ -155,7 +155,10 @@ app.hideSplashScreen = function() {
     // see https://github.com/01org/appframework/blob/master/documentation/detail/%24.ui.launch.md
     // Do the following if you disabled App Framework autolaunch (in index.html, for example)
     // $.ui.launch() ;
-
+    
+    var spinner = document.querySelector('.spinner');
+    spinner.className = 'hide';
+    
     if( navigator.splashscreen && navigator.splashscreen.hide ) {   // Cordova API detected
         navigator.splashscreen.hide() ;
     }

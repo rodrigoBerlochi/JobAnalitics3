@@ -52,11 +52,40 @@ body {
 
 /*App Styles*/
 
+/*workaround to show before everything starts*/
+.initial{
+    background-color: #000;
+}
+
+/*Utilities*/
+.hide{
+    display: none;
+}
+.icon-next{
+    display: block;
+    background-image: url(../img/next.png);
+    background-repeat: no-repeat;
+    width: 42px;
+    height: 42px;
+    float: left;
+    background-position: center;
+}
+.icon-user{
+    display: block;
+    background-image: url(../img/user.png);
+    background-repeat: no-repeat;
+    width: 42px;
+    height: 42px;
+    float: left;
+    background-position: center;
+}
+
 /*Sidebar*/
 .sidebar{
 
 }
 
+/*Main content*/
 #container{
     
     .top-bar{
@@ -91,6 +120,11 @@ body {
         .heading2{
             font-size: 32px;
             font-weight: bold;
+            
+            .left, &.left{
+                text-align: left;
+                padding-left: 22px;
+            }
         }
 
         .landing{

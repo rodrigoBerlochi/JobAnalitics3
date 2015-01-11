@@ -43,7 +43,6 @@
     <script src="js/vendor/toastr.js"></script>
     <script src="js/vendor/backbone.stickit.js"></script>
     <script src="js/vendor/pageslider.js"></script>
-    <script src="font/icons/icomatic.js"></script>
    
     <script src="js/vendor/sidebar.js"></script>
 <!--    <script src="js/vendor/index.js"></script> TODO: verify if it's needed-->
@@ -57,7 +56,6 @@
     <link rel="stylesheet" href="css/vendor/step.css">
     <link rel="stylesheet" href="css/vendor/menu.css">
     <link rel="stylesheet" href="css/vendor/pageslider.css">
-    <link rel="stylesheet" href="font/icons/icomatic.css">
 </head>
 
 
@@ -74,8 +72,9 @@
       </a>
     </div>
     
-    <div class="pusher" id="container">
-          <div class="top-bar"><div class="hamburger">&nbsp;</div></div> 
+    <div class="pusher initial" id="container">
+          <div class="top-bar"><div class="hamburger">&nbsp;</div></div>
+            
            <!-- <h1 class="align-center">Starting template</h1>
             <br>
             <p class="align-center">
@@ -83,12 +82,12 @@
             </p>-->
     
        <!--loader-->
-        <!--<div class="ui segment">
+        <div class="ui segment spinner">
           <p></p>
           <div class="ui active dimmer">
             <div class="ui loader"></div>
           </div>
-        </div>-->
+        </div>
     
     <!--steps-->
 <!--    <div class="ui vertical steps">
