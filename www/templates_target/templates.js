@@ -4,7 +4,7 @@ this["JST"]["templates_src/landing.tpl"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div>\r\n    <header>Header</header>\r\n    <section class="results clickable"> Results</section>\r\n    <section class="profile clickable"> Profile</section>\r\n</div>';
+__p += '<div>\r\n    <div class="landing">\r\n        <header><p class="heading heading1">JobAnalitics</p></header>\r\n        <section class="results clickable heading2 heading"><p>Results</p></section>\r\n        <section class="profile clickable heading2 heading"><p>Profile</p></section>\r\n    </div>\r\n</div>';
 
 }
 return __p

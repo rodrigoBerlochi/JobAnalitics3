@@ -126,3 +126,79 @@ body {
 }
 
 /*App Styles*/
+/*Sidebar*/
+/* line 62, ../sass/screen.scss */
+#container .top-bar {
+  width: 100%;
+  height: 40px;
+  background-color: black;
+}
+/* line 67, ../sass/screen.scss */
+#container .top-bar .hamburger {
+  cursor: pointer;
+  margin-left: 7px;
+  width: 30px;
+  height: 30px;
+  background-image: url(../img/hamburger_light.svg);
+  background-repeat: no-repeat;
+}
+/* line 77, ../sass/screen.scss */
+#container .page {
+  margin-top: 40px;
+}
+/* line 80, ../sass/screen.scss */
+#container .page .clickable {
+  cursor: pointer;
+}
+/* line 83, ../sass/screen.scss */
+#container .page .heading {
+  color: white;
+  font-family: "Source Sans Pro", "source-sans-pro", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+/* line 87, ../sass/screen.scss */
+#container .page .heading1 {
+  font-size: 45px;
+  font-weight: bold;
+}
+/* line 91, ../sass/screen.scss */
+#container .page .heading2 {
+  font-size: 32px;
+  font-weight: bold;
+}
+/* line 96, ../sass/screen.scss */
+#container .page .landing {
+  height: 100%;
+}
+/* line 99, ../sass/screen.scss */
+#container .page .landing header {
+  height: 44%;
+  background-image: url(../img/autumn.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: table;
+  width: 100%;
+}
+/* line 107, ../sass/screen.scss */
+#container .page .landing header p {
+  display: table-cell;
+  vertical-align: middle;
+}
+/* line 113, ../sass/screen.scss */
+#container .page .landing .results, #container .page .landing .profile {
+  height: 25%;
+  width: 100%;
+  display: table;
+}
+/* line 118, ../sass/screen.scss */
+#container .page .landing .results p, #container .page .landing .profile p {
+  display: table-cell;
+  vertical-align: middle;
+}
+/* line 123, ../sass/screen.scss */
+#container .page .landing .results {
+  background-color: #007D7E;
+}
+/* line 127, ../sass/screen.scss */
+#container .page .landing .profile {
+  background-color: #84373C;
+}

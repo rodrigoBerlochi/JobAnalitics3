@@ -1,24 +1,24 @@
-/*var SideMenu = Backbone.View.extend({
+var SideMenu = Backbone.View.extend({
 
     el: '.sidebar',
     
     initialize: function() {},
     
     events: {
-        'click .hamburger': 'slideMenu'
-    },
-    
-    slideMenu: function(){
-    
+       
     }
     
-});*/
+});
 
 var LandingView = Backbone.View.extend({
 
     el: '#container',
     
-    events: {},
+    events: {
+    
+        'click .hamburger': 'slideMenu',
+        'click .results': 'goResults'
+    },
     
     template: JST['templates_src/landing.tpl'],
     
@@ -33,6 +33,18 @@ var LandingView = Backbone.View.extend({
         var compiledTpl = this.template(this.model.toJSON());
             
         app.slider.slidePage($(compiledTpl));
+    },
+    
+    slideMenu: function(){
+
+        $('.sidebar').sidebar('toggle');
+        
+    },
+    
+    goResults: function() {
+        
+        alert('results');
+         
     }
     
 });

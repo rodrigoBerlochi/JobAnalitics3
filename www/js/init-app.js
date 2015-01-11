@@ -37,7 +37,7 @@ app.initBackbone = function(){
     
     //init view and pass in models
     var landingView = new LandingView({model: landingModel});
-   // var sideMenu = new SideMenu();
+    var sideMenu = new SideMenu();
     
     //init router
     var router = new appRouter();
@@ -77,6 +77,9 @@ app.initEvents = function() {
     
     //initi pageSlider, it manage page transitions
     app.slider = new PageSlider($("#container"));
+    
+    //init fast click
+    FastClick.attach(document.body);
     
     app.initBackbone();
 
