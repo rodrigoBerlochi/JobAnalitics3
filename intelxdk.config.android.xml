@@ -9,6 +9,10 @@
 <author>Rodrigo Nicolas Berlochi</author>
 <content src="index.html"/>
 <access origin="*"/>
+<splash platform="android" src="img/splash1.jpg" density="ldpi" width="320" height="426" orientation="portrait"/>
+<splash platform="android" src="img/splash2.jpg" density="mdpi" width="320" height="470" orientation="portrait"/>
+<splash platform="android" src="img/splash3.jpg" density="hdpi" width="480" height="640" orientation="portrait"/>
+<splash platform="android" src="img/splash4.jpg" density="xhdpi" width="720" height="960" orientation="portrait"/>
 <intelxdk:plugin intelxdk:name="Device" intelxdk:value="org.apache.cordova.device" intelxdk:version="0.2.9"/>
 <intelxdk:plugin intelxdk:name="SplashScreen" intelxdk:value="org.apache.cordova.splashscreen" intelxdk:version="0.3.0"/>
 <intelxdk:plugin intelxdk:name="Connection" intelxdk:value="org.apache.cordova.network-information" intelxdk:version="0.2.8"/>
@@ -18,4 +22,5 @@
 <preference name="android-targetSdkVersion" value="19"/>
 <preference name="android-installLocation" value="auto"/>
 <preference name="Fullscreen" value="false"/>
+<preference name="splashscreen" value="splash"/>
 <!--creationInfo:{"src":"https://edge-intel.s3.amazonaws.com/jsapp/production/release-2014-ww45/template-a-blank-cordova/sample.zip","projectTypeName":"com.intel.xdk.projecttype.jsapp"}--></widget>

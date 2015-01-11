@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "https://edge-intel.s3.amazonaws.com/jsapp/production/release-2014-ww45/template-a-blank-cordova/sample.zip",
       "projectGuid": "f472e993-f8cb-4dd2-afe1-3acedc7902c0",
-      "lastModifiedDate": 1420320046023,
+      "lastModifiedDate": 1421008908895,
       "creationDate": 1420305176006
     },
     "sourceDirectory": "www",
@@ -84,7 +84,36 @@
         "appID_": "xdk.intel.blank.project",
         "appAccess_": "*",
         "icons_": [],
-        "splashes_": [],
+        "splashes_": [
+          {
+            "relPath": "img/splash1.jpg",
+            "density": "ldpi",
+            "height": 426,
+            "width": 320,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "img/splash2.jpg",
+            "density": "mdpi",
+            "height": 470,
+            "width": 320,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "img/splash3.jpg",
+            "density": "hdpi",
+            "height": 640,
+            "width": 480,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "img/splash4.jpg",
+            "density": "xhdpi",
+            "height": 960,
+            "width": 720,
+            "orientation": "portrait"
+          }
+        ],
         "iosProvs_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
@@ -182,6 +211,9 @@
         "crosswalkVersion_": "stable",
         "appVersion_": "1.0.0.0"
       }
-    }
+    },
+    "gameAssetDirectory": "asset",
+    "gameMetadata": {},
+    "projectTags": []
   }
 }
