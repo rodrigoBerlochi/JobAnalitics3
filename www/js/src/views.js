@@ -18,7 +18,7 @@ var LandingView = Backbone.View.extend({
     
         'click .hamburger': 'slideMenu',
         'click .results': 'goResults',
-        'click .profile': 'goResults'
+        'click .profile': 'goProfile'
     },
     
     template: JST['templates_src/landing.tpl'],
@@ -46,17 +46,18 @@ var LandingView = Backbone.View.extend({
 
         Events.trigger('router:navigate', 'resultView');
          
+    },
+    
+    goProfile: function() {
+    
+         Events.trigger('router:navigate', 'profileView');
+        
     }
     
 });
 
 
-var ProfileFormView = Backbone.View.extend({
-
-});
-
-
-var ProfileBriefView = Backbone.View.extend({
+var ProfileView = Backbone.View.extend({
     
     el: '#container',
     
@@ -64,6 +65,7 @@ var ProfileBriefView = Backbone.View.extend({
     
     initialize: function() {
     
+         Events.on('ProfileView:show', this.render, this);
         //skipping it out here since this view uses stickit
         //this.listenTo(this.model, 'change', this.render);
     },
@@ -73,7 +75,9 @@ var ProfileBriefView = Backbone.View.extend({
     bindings: {},
     
     render: function() {
-        this.$el.html(this.template);
+        //this.$el.html(this.template);
+        var compiledTpl = this.template();
+        app.slider.slidePage($(compiledTpl));
         this.stickit();
         return this;
     }

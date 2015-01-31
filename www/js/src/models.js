@@ -73,6 +73,6 @@ var ParamsModel = Backbone.Model.extend({
 var LandingModel = Backbone.Model.extend({
     defaults: {
         resultsEnabled : false,
-        profileEnabled : false
+        profileEnabled : true
     }
 });
