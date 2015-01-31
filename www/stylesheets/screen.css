@@ -245,3 +245,7 @@ body {
   width: 100%;
   display: block;
 }
+/* line 172, ../sass/screen.scss */
+#container .page .profile {
+  height: 100%;
+}

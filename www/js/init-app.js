@@ -30,9 +30,9 @@ app.consoleLog = function() {           // only emits console.log messages if ap
 app.initBackbone = function(){
     
     //init models
-    var profileModel = new ProfileModel();
+/*    var profileModel = new ProfileModel();
     var resultSet = new ResultSet();
-    var paramsModel = new ParamsModel();
+    var paramsModel = new ParamsModel();*/
     var landingModel = new LandingModel();
     
     //init view and pass in models

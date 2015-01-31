@@ -5,7 +5,36 @@ var SideMenu = Backbone.View.extend({
     initialize: function() {},
     
     events: {
-       
+        'click .sb-results': 'goResults',
+        'click .sb-profile': 'goProfile',
+        'click .sb-home': 'goHome'
+    },
+    
+    goResults: function() {
+
+        Events.trigger('router:navigate', 'resultView');
+        this.closeSlide();
+        
+    },
+    
+    goProfile: function() {
+    
+        Events.trigger('router:navigate', 'profileView');
+        this.closeSlide();
+        
+    },
+    
+    goHome: function() {
+    
+       window.location.hash =  '';
+       this.closeSlide();
+        
+    },
+    
+    closeSlide: function() {
+    
+        this.$el.sidebar('toggle');
+        
     }
     
 });
@@ -61,13 +90,14 @@ var ProfileView = Backbone.View.extend({
     
     el: '#container',
     
-    //template: 'body',
+    template: JST['templates_src/profile.tpl'], 
     
     initialize: function() {
     
          Events.on('ProfileView:show', this.render, this);
         //skipping it out here since this view uses stickit
         //this.listenTo(this.model, 'change', this.render);
+        
     },
     
     events: {},
@@ -79,6 +109,15 @@ var ProfileView = Backbone.View.extend({
         var compiledTpl = this.template();
         app.slider.slidePage($(compiledTpl));
         this.stickit();
+        
+        //create swiper to slide form, using plugin
+        var mySwiper = new Swiper('.swiper-container',{
+            //Your options here:
+            mode:'horizontal',
+            loop: true
+            //etc..
+        });  
+        
         return this;
     }
     

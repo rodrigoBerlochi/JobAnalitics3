@@ -10,6 +10,16 @@ __p += '<div>\r\n    <div class="landing">\r\n        <header><p class="heading 
 return __p
 };
 
+this["JST"]["templates_src/profile.tpl"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div>\r\n    <div class="profile">\r\n        <h2 class="heading heading2">Profile view</h2>\r\n        \r\n        <!--swiper-->\r\n            <div class="swiper-container">\r\n              <div class="swiper-wrapper">\r\n                  <!--First Slide-->\r\n                  <div class="swiper-slide"> \r\n                    <!-- Any HTML content of the first slide goes here -->\r\n                      TEst 1\r\n                  </div>\r\n\r\n                  <!--Second Slide-->\r\n                  <div class="swiper-slide">\r\n                    <!-- Any HTML content of the second slide goes here -->\r\n                      Test 2\r\n                  </div>\r\n\r\n                  <!--Third Slide-->\r\n                  <div class="swiper-slide"> \r\n                    <!-- Any HTML content of the third slide goes here -->\r\n                  </div>\r\n                  <!--Etc..-->\r\n              </div>\r\n</div>\r\n        \r\n    </div>\r\n</div>';
+
+}
+return __p
+};
+
 this["JST"]["templates_src/src1.tpl"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;

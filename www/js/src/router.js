@@ -1,20 +1,20 @@
 var appRouter = Backbone.Router.extend({
 
     routes: {
-        '': 'setLanding'
-        //y si todos las routes que no sean default home, usan el mismo param y van al mismo metodo?
+        '': 'setLanding',
+        'view/:query': 'setView'
     },
     
     initialize: function() {
     
         Events.on('router:navigate', this.navigateTo, this);
-        console.log('router');
-        
+        app.consoleLog('router');
+            
     },
     
     navigateTo: function(page) {
         
-        this.navigate('view/' + page);
+        this.navigate('view/' + page, {trigger: true});
 
     },
     
@@ -23,6 +23,20 @@ var appRouter = Backbone.Router.extend({
         app.consoleLog('setLanding');
         Events.trigger('LandingView:show');
 
+    },
+    
+    setView: function(query) {
+        
+        app.consoleLog('set view');
+        app.consoleLog(query);
+        
+        switch(query){
+            case 'profileView':
+                var profileModel = new ProfileModel();
+                var profileView = new ProfileView({model: profileModel});
+                Events.trigger('ProfileView:show');
+                break;
+        }
     }
     
 });
