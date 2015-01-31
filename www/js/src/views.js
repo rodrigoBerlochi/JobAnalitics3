@@ -100,7 +100,9 @@ var ProfileView = Backbone.View.extend({
         
     },
     
-    events: {},
+    events: {
+        'click .cancel': 'goHome'
+    },
     
     bindings: {},
     
@@ -114,11 +116,18 @@ var ProfileView = Backbone.View.extend({
         var mySwiper = new Swiper('.swiper-container',{
             //Your options here:
             mode:'horizontal',
-            loop: true
-            //etc..
+            //loop: true,
+            pagination: '.pagination',
+            paginationClickable: true
         });  
-        
+
         return this;
+    },
+    
+    goHome: function() {
+    
+       window.location.hash =  '';
+        
     }
     
 });

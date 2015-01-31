@@ -61,6 +61,8 @@ Basic Swiper Styles
 	-webkit-box-sizing: content-box;
 	-moz-box-sizing: content-box;
 	box-sizing: content-box;
+    
+    padding-top: 1px;
 }
 .swiper-free-mode > .swiper-wrapper {
 	-webkit-transition-timing-function: ease-out;
@@ -93,7 +95,7 @@ sizes, pagination, etc.
 	/* Specify Swiper's Size: */
 
 	width: 100%;
-	height: 100%;
+	height: 46%;
 }
 .swiper-slide {
 	/* Specify Slides's Size: */
