@@ -17,7 +17,8 @@ var LandingView = Backbone.View.extend({
     events: {
     
         'click .hamburger': 'slideMenu',
-        'click .results': 'goResults'
+        'click .results': 'goResults',
+        'click .profile': 'goResults'
     },
     
     template: JST['templates_src/landing.tpl'],
@@ -42,8 +43,8 @@ var LandingView = Backbone.View.extend({
     },
     
     goResults: function() {
-        
-        alert('results');
+
+        Events.trigger('router:navigate', 'resultView');
          
     }
     

@@ -53,9 +53,9 @@ body {
 /*App Styles*/
 
 /*workaround to show before everything starts*/
-.initial{
+/*.initial{
     background-color: #000;
-}
+}*/
 
 /*Utilities*/
 .hide{
@@ -78,6 +78,10 @@ body {
     height: 42px;
     float: left;
     background-position: center;
+}
+.dark{
+    color: #F0F1F1;
+    background: #4A4D4E;
 }
 
 /*Sidebar*/
@@ -131,7 +135,7 @@ body {
             height: 100%;
             
             header{
-                height: 44%;
+                height: 50%;
                 background-image: url(../img/autumn.png);
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -144,24 +148,25 @@ body {
                 }
             }
             
-            .results, .profile{
-                height: 25%;
+           section{
+                height: 20%;
                 width: 100%;
                 display: table;
-                
-                p{
+               
+                div{
                     display: table-cell;
                     vertical-align: middle;
+                    padding-left: 10%;
+                    padding-right: 10%;
+                    
+                    button{
+                        width: 100%;
+                        display: block;
+                    }
                 }
+               
             }
-            .results{
-                //background-color: #FFB237;
-                background-color: #007D7E;
-            }
-            .profile{
-                //background-color: #72AB89;
-                background-color: #84373C;
-            }
+
         }
 
     }
