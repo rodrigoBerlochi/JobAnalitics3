@@ -8,7 +8,7 @@ var ProfileModel = Backbone.Model.extend({
     },
     
     defaults: {
-        'category': 'test',
+        'category': '',
         'subcategory': '',
         'keyword': '',
         'city': '',

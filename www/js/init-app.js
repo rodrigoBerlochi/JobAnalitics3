@@ -16,7 +16,6 @@ window.app = window.app || {} ;         // there should only be one of these...
 app.slider = null;
 
 // Set to "true" if you want the console.log messages to appear.
-
 app.LOG = false ;
 
 app.consoleLog = function() {           // only emits console.log messages if app.LOG != false
@@ -24,15 +23,98 @@ app.consoleLog = function() {           // only emits console.log messages if ap
         var args = Array.prototype.slice.call(arguments, 0) ;
         console.log.apply(console, args) ;
     }
-} ;
+};
 
+
+app.localDictionaries = (function() {
+    var properties = {
+            category : null,
+            subcategory : null,
+            city : null,
+            country : null,
+            'salary-range' : null,
+            'contract-type':  null
+        },
+        dictionaryNames = ['category', 'subcategory', 'city', 'country', 'salary-range', 'contract-type'],
+        methods = {};
+    
+/*        methods.getDictionaryFor = function(name){
+            name = name || '';
+            var uri;
+            
+            switch(name){
+                case 'categories':
+                    uri = 'category';
+                    break;
+                 case 'subcategories':
+                    uri = 'subcategory';
+                    break;
+                 case 'cities':
+                    uri = 'city';
+                    break;
+                 case 'countries':
+                    uri = 'country';
+                    break;
+                 case 'earning':
+                    uri = 'salary-range';
+                    break;
+                 case 'contract':
+                    uri = 'contract-type';
+                    break;
+                 case '':
+                    console.log('Error: Missing dictionary type');
+                    return;
+            }
+            
+            methods.doRequest(uri, name);
+            
+        };*/
+    
+        methods.getDictionaries = function(){
+            for(var i=0; i<dictionaryNames.length; i++){
+                //alert(dictionaryNames[i]);
+                methods.doRequest(dictionaryNames[i]);    
+            }
+        };
+    
+        methods.doRequest = function(name) {
+            $.ajax({
+                url: 'https://api.infojobs.net/api/1/dictionary/' + name,
+                dataType: 'json',
+                type: 'GET',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', 'Basic NTYwZWYxNjE5YzJmNGJjY2FmODE0NDkzZmNjZmNmNjk6SUllSkVTOXF1aGdFTHFnVlVDUk5oSEQ2dGRiS1ppUEMzR2tjVjROSWpaZC9SMHNYNTQ=');
+                },
+                success: function (data){
+                    methods.updateProperty(data, name);
+                },
+                error: function (err){
+                    alert('Error occurred on retrieving profile options');
+                }
+            });
+        };
+    
+        methods.updateProperty = function(data, name) {
+            //alert(data[1].value);
+            
+            properties[name] = data;
+            
+            //alert(properties.city[1].value);
+        };
+    
+    methods.getThisDictonary = function(name){
+        return properties[name];
+    };
+    
+    return {
+        getDictionaries : methods.getDictionaries,
+        getThisDictonary : methods.getThisDictonary
+    };
+}());
 
 app.initBackbone = function(){
     
     //init models
-/*    var profileModel = new ProfileModel();
-    var resultSet = new ResultSet();
-    var paramsModel = new ParamsModel();*/
     var landingModel = new LandingModel();
     
     //init view and pass in models
@@ -43,12 +125,7 @@ app.initBackbone = function(){
     var router = new appRouter();
     Backbone.history.start();
     
-    this.subscribeEvents();
-};
-
-app.subscribeEvents = function() {
-
-    //Events.on('eventname', callback);
+   
 };
 
 
@@ -82,6 +159,20 @@ app.initEvents = function() {
     FastClick.attach(document.body);
     
     app.initBackbone();
+    
+    app.localDictionaries.getDictionaries();
+   
+   /* $.ajax({
+        url: 'https://api.infojobs.net/api/1/dictionary/city',
+         dataType: 'json',
+                type: 'GET',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', 'Basic NTYwZWYxNjE5YzJmNGJjY2FmODE0NDkzZmNjZmNmNjk6SUllSkVTOXF1aGdFTHFnVlVDUk5oSEQ2dGRiS1ppUEMzR2tjVjROSWpaZC9SMHNYNTQ=');
+                },
+        success: function(d){
+            alert(d);
+        }
+    });*/
 
     // NOTE: initialize your app event handlers, see app.js for a simple event handler example
 

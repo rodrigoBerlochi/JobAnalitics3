@@ -7,7 +7,16 @@ var SideMenu = Backbone.View.extend({
     events: {
         'click .sb-results': 'goResults',
         'click .sb-profile': 'goProfile',
-        'click .sb-home': 'goHome'
+        'click .sb-home': 'goHome',
+        'click .sb-close': 'closeApp'
+    },
+    
+    closeApp: function() {
+        var answer = confirm('JobAnalitics va a ser cerrada');
+        if(answer === true){
+            navigator.app.exitApp();
+        }
+        this.closeSlide();
     },
     
     goResults: function() {
@@ -97,7 +106,7 @@ var ProfileView = Backbone.View.extend({
          Events.on('ProfileView:show', this.render, this);
         //skipping it out here since this view uses stickit
         //this.listenTo(this.model, 'change', this.render);
-        
+        this.createDropDowns();
     },
     
     events: {
@@ -108,6 +117,11 @@ var ProfileView = Backbone.View.extend({
     },
     
     bindings: {},
+    
+    createDropDowns: function() {
+        var city = app.localDictionaries.getThisDictonary('city');
+        alert('city ' + city[1].value);
+    },
     
     enableSaving: function() {
         this.$('.save').removeAttr('disabled');

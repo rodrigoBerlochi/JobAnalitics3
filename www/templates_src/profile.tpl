@@ -28,7 +28,7 @@
                          
                          <select class="ctrl">
                             <option value="" selected>Categorías</option>
-                            <option>test</option> 
+                            <option></option> 
                          </select>
                         
                          <div><a class="ui label teal pointing below">Subcategorías</a></div>
