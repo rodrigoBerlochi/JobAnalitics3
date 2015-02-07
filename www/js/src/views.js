@@ -101,17 +101,63 @@ var ProfileView = Backbone.View.extend({
     },
     
     events: {
-        'click .cancel': 'goHome'
+        'click .cancel': 'goHome',
+        'change select': 'enableSaving',
+        'click input': 'enableSaving',
+        'click .edit': 'toggleEditLayer'
     },
     
     bindings: {},
     
-    render: function() {
-        //this.$el.html(this.template);
-        var compiledTpl = this.template();
-        app.slider.slidePage($(compiledTpl));
-        this.stickit();
+    enableSaving: function() {
+        this.$('.save').removeAttr('disabled');
+    },
+    
+    isProfileEmpty: function() {
+    
+        var model = this.model.toJSON(),
+            key;
         
+        for(key in model){
+            if(model.hasOwnProperty(key) && model[key] !== ''){
+                return false;
+            }
+        }
+        
+        return true;
+        
+    },
+    
+    toggleEditLayer: function(action) {
+        
+        var brief = this.$('.profile-brief'),
+            editing = this.$('.swiper-container'),
+            save = this.$('.topcoat-button--cta.save'),
+            edit = this.$('.topcoat-button--cta.edit');
+        
+        //default value if it's called without params
+        action = typeof action !== 'string'?'show':action; 
+            
+        if(action === 'show'){
+            
+            brief.addClass('hide');
+            editing.removeClass('hide');
+            save.removeClass('hide');
+            edit.addClass('hide');
+            
+            this.createSwiper();
+            
+        }else{ //'hide'
+            
+            editing.addClass('hide');
+            brief.removeClass('hide');
+            save.addClass('hide');
+            edit.removeClass('hide');
+        
+        }
+    },
+    
+    createSwiper: function() {
         //create swiper to slide form, using plugin
         var mySwiper = new Swiper('.swiper-container',{
             //Your options here:
@@ -120,6 +166,17 @@ var ProfileView = Backbone.View.extend({
             pagination: '.pagination',
             paginationClickable: true
         });  
+    },
+    
+    render: function() {
+        //this.$el.html(this.template);
+        var compiledTpl = this.template(this.model.toJSON());
+        app.slider.slidePage($(compiledTpl));
+        //this.stickit(); 
+        
+        //show form or brief?
+        var action = this.isProfileEmpty()?'show':'hide';
+        this.toggleEditLayer(action);
 
         return this;
     },

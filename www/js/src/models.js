@@ -2,14 +2,19 @@ var ProfileModel = Backbone.Model.extend({
     
     initialize: function() {
     
-        
         //validation event
         this.on('invalid', this.handleError, this);
         
     },
     
     defaults: {
-    
+        'category': 'test',
+        'subcategory': '',
+        'keyword': '',
+        'city': '',
+        'country': '',
+        'earning': '',
+        'contract': ''
     },
     
     url: function() {
@@ -29,9 +34,9 @@ var ProfileModel = Backbone.Model.extend({
     validate: function(attrs) {
         //TODO: replace something with att name, see validation logic
         //maybe a switch for different attributes or different if for different rules: empty etc
-        if(!attrs.something){
+        /*if(!attrs.something){
             return "This is a base error msg";
-        }
+        }*/
     
     },
     
@@ -74,5 +79,14 @@ var LandingModel = Backbone.Model.extend({
     defaults: {
         resultsEnabled : false,
         profileEnabled : true
+    },
+    
+    initialize: function() {
+        Events.trigger('queryProfileStatus', this.setResultButton, this);
+        Events.on('', this.setResultButton, this);
+    },
+    
+    setResultButton: function() {
+        
     }
 });

@@ -42,7 +42,7 @@ app.initBackbone = function(){
     //init router
     var router = new appRouter();
     Backbone.history.start();
-
+    
     this.subscribeEvents();
 };
 

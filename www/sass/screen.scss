@@ -59,7 +59,7 @@ body {
 
 /*Utilities*/
 .hide{
-    display: none;
+    display: none!important;
 }
 .icon-next{
     display: block;
@@ -144,6 +144,10 @@ select{
                 padding-left: 22px;
             }
         }
+        .heading3{
+            font-size: 22px;
+            font-weight: bold;
+        }
 
         .landing{
             height: 100%;
@@ -176,6 +180,7 @@ select{
                     button{
                         width: 100%;
                         display: block;
+                        border-radius: 0px;
                     }
                 }
                
@@ -186,6 +191,21 @@ select{
         .profile-view{
             height: 100%;
             padding-top: 30px;
+            
+            .profile-brief{
+            
+                ul{
+                    li{
+                        line-height: 32px;
+                        text-align: left;
+                        padding-left: 10%;
+                    }
+                }
+                
+                .heading{
+                    margin-bottom: 20px;
+                }
+            }
             
             h2{
                 padding-bottom: 30px;
@@ -206,12 +226,13 @@ select{
               cursor: pointer;
             }
             .swiper-active-switch {
-              background: #fff;
+              border-color: #00b5ad!important;
             }
             
             .topcoat-button-bar{
                 float: right;
-                margin-right: 0.5em;
+                margin-right: 1.5em;
+                margin-top: 1em;
             }
             
             select{

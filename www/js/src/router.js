@@ -32,8 +32,14 @@ var appRouter = Backbone.Router.extend({
         
         switch(query){
             case 'profileView':
-                var profileModel = new ProfileModel();
-                var profileView = new ProfileView({model: profileModel});
+                
+                if(app.profileModel === undefined){
+                    app.profileModel = new ProfileModel();
+                }
+                if(app.profileView === undefined){
+                    app.profileView = new ProfileView({model: app.profileModel});
+                }
+                     
                 Events.trigger('ProfileView:show');
                 break;
         }
