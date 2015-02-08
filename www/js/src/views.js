@@ -114,6 +114,10 @@ var ProfileView = Backbone.View.extend({
         'click .cancel': 'goHome',
         'change select': 'enableSaving',
         'change select.category': 'showSubcategories',
+        
+        'change select.country': 'showProvince',
+        'change select.province': 'showCity',
+        
         'click input': 'enableSaving',
         'click .edit': 'toggleEditLayer'
     },
@@ -135,6 +139,25 @@ var ProfileView = Backbone.View.extend({
         this.$('.subcategory-holder').removeClass('hide');
     },
     
+    showProvince: function() {
+        var el = this.$('select.country'),
+            val = el.find('option:selected').attr('id');
+       
+        
+        this.populateDropDown(this.dictionaries.province, 'province', val);
+        
+        this.$('.province-holder').removeClass('hide');
+    },
+    
+    showCity: function() {
+        var el = this.$('select.province'),
+            val = el.find('option:selected').attr('id');
+         alert(val);
+        this.populateDropDown(this.dictionaries.city, 'city', val);
+        
+        this.$('.city-holder').removeClass('hide');
+    },
+    
     getDictionaries: function() {
         
         this.dictionaries.city = app.localDictionaries.getThisDictonary('city');
@@ -143,6 +166,7 @@ var ProfileView = Backbone.View.extend({
         this.dictionaries.category = app.localDictionaries.getThisDictonary('category');
         this.dictionaries.salaryRange = app.localDictionaries.getThisDictonary('salary-range');
         this.dictionaries.contractType = app.localDictionaries.getThisDictonary('contract-type');
+        this.dictionaries.province = app.localDictionaries.getThisDictonary('province');
             
     },
     
@@ -153,8 +177,10 @@ var ProfileView = Backbone.View.extend({
       for(var i=0; i < data.length; i++){  
          
           if(filterBy != undefined){
-            if(data[i].parent != filterBy){
+            if(data[i].parent != filterBy){              
                 continue;
+            }else{
+                //alert(data[i].parent + '-' + filterBy);
             }; 
           }
          

@@ -52,7 +52,7 @@
                   <!--Third Slide-->
                   <div class="swiper-slide"> 
                     <!-- Any HTML content of the third slide goes here -->
-                      <div class="ui  segment">
+                      <div class="">
                      
                         <div><a class="ui label teal pointing below">País</a></div>
                         <select class="ctrl country">
