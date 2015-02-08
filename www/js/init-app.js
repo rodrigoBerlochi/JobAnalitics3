@@ -36,7 +36,7 @@ app.localDictionaries = (function() {
             'salary-range' : null,
             'contract-type':  null
         },
-        dictionaryNames = ['category', 'subcategory', 'city', 'country', 'province', 'salary-range', 'contract-type'],
+        dictionaryNames = ['category', 'country', 'salary-range', 'contract-type', 'subcategory', 'city', 'province'],
         methods = {};
     
         methods.getDictionaries = function(){
@@ -76,6 +76,7 @@ app.localDictionaries = (function() {
     return {
         getDictionaries : methods.getDictionaries,
         getThisDictonary : methods.getThisDictonary
+        //askNewDictionary: methods.doRequest
     };
 }());
 

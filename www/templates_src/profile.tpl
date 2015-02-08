@@ -29,10 +29,10 @@
 
                          </select>
                         
-                         <div class="subcategory-holder hide"><a class="ui label teal pointing below">Subcategorías</a></div>
+                         <div class="subcategory-holder hide"><a class="ui label teal pointing below">Subcategorías</a>
                          <select class="ctrl subcategory">
              
-                         </select>
+                         </select></div>
                          
                       </div>
                       

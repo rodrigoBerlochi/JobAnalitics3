@@ -113,6 +113,7 @@ var ProfileView = Backbone.View.extend({
     events: {
         'click .cancel': 'goHome',
         'change select': 'enableSaving',
+        'change select.category': 'showSubcategories',
         'click input': 'enableSaving',
         'click .edit': 'toggleEditLayer'
     },
@@ -123,6 +124,15 @@ var ProfileView = Backbone.View.extend({
     
     createDropDowns: function() {
         this.getDictionaries();
+    },
+    
+    showSubcategories: function() {
+        var el = this.$('select.category'),
+            val = el.find('option:selected').attr('id');
+        
+        this.populateDropDown(this.dictionaries.subcategory, 'subcategory', val);
+        
+        this.$('.subcategory-holder').removeClass('hide');
     },
     
     getDictionaries: function() {
@@ -136,16 +146,38 @@ var ProfileView = Backbone.View.extend({
             
     },
     
-    populateDropDown: function(data, target) {
+    populateDropDown: function(data, target, filterBy) {
       var html = '',
           data = data || {};
         
-      for(var i=0; i < data.length; i++){
-          html += '<option value=' + data[i].key + '>' + data[i].value + '</option>';
+      for(var i=0; i < data.length; i++){  
+         
+          if(filterBy != undefined){
+            if(data[i].parent != filterBy){
+                continue;
+            }; 
+          }
+         
+          
+          html += '<option id="' + data[i].id + '" value="' + data[i].key + '">' + data[i].value + '</option>';
       }
         
       this.$('.' + target).html(html);      
     },
+    
+/*    populateOneDropDown: function(data, target, filterBy) {
+      var html = '',
+          data = data || {};
+        
+      for(var i=0; i < data.length; i++){
+          if(data[i].parent != filterBy){
+            continue;
+          };
+          html += '<option id="' + data[i].id + '" value="' + data[i].key + '">' + data[i].value + '</option>';
+      }
+        
+      this.$('.' + target).html(html);      
+    },*/
     
     enableSaving: function() {
         this.$('.save').removeAttr('disabled');
@@ -215,9 +247,9 @@ var ProfileView = Backbone.View.extend({
         var action = this.isProfileEmpty()?'show':'hide';
         this.toggleEditLayer(action);
         
-        this.populateDropDown(this.dictionaries.city, 'city');
+        //this.populateDropDown(this.dictionaries.city, 'city');
         this.populateDropDown(this.dictionaries.country, 'country');
-        this.populateDropDown(this.dictionaries.subcategory, 'subcategory');
+        //this.populateDropDown(this.dictionaries.subcategory, 'subcategory');
         this.populateDropDown(this.dictionaries.category , 'category');
         this.populateDropDown(this.dictionaries.salaryRange, 'salaryRange');
         this.populateDropDown(this.dictionaries.contractType, 'contractType');
