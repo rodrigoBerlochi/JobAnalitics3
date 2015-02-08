@@ -32,43 +32,12 @@ app.localDictionaries = (function() {
             subcategory : null,
             city : null,
             country : null,
+            province: null,
             'salary-range' : null,
             'contract-type':  null
         },
-        dictionaryNames = ['category', 'subcategory', 'city', 'country', 'salary-range', 'contract-type'],
+        dictionaryNames = ['category', 'subcategory', 'city', 'country', 'province', 'salary-range', 'contract-type'],
         methods = {};
-    
-/*        methods.getDictionaryFor = function(name){
-            name = name || '';
-            var uri;
-            
-            switch(name){
-                case 'categories':
-                    uri = 'category';
-                    break;
-                 case 'subcategories':
-                    uri = 'subcategory';
-                    break;
-                 case 'cities':
-                    uri = 'city';
-                    break;
-                 case 'countries':
-                    uri = 'country';
-                    break;
-                 case 'earning':
-                    uri = 'salary-range';
-                    break;
-                 case 'contract':
-                    uri = 'contract-type';
-                    break;
-                 case '':
-                    console.log('Error: Missing dictionary type');
-                    return;
-            }
-            
-            methods.doRequest(uri, name);
-            
-        };*/
     
         methods.getDictionaries = function(){
             for(var i=0; i<dictionaryNames.length; i++){
@@ -96,9 +65,7 @@ app.localDictionaries = (function() {
     
         methods.updateProperty = function(data, name) {
             //alert(data[1].value);
-            
             properties[name] = data;
-            
             //alert(properties.city[1].value);
         };
     
@@ -155,12 +122,15 @@ app.initEvents = function() {
     //initi pageSlider, it manage page transitions
     app.slider = new PageSlider($("#container"));
     
+    //API request to get all the Dict.
+    app.localDictionaries.getDictionaries();
+    
     //init fast click
     FastClick.attach(document.body);
     
     app.initBackbone();
     
-    app.localDictionaries.getDictionaries();
+    
    
    /* $.ajax({
         url: 'https://api.infojobs.net/api/1/dictionary/city',

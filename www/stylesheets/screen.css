@@ -316,13 +316,18 @@ select {
 #container .page .profile-view .topcoat-button-bar {
   float: right;
   margin-right: 1.5em;
-  margin-top: 1em;
+  margin-top: 3em;
 }
 /* line 238, ../sass/screen.scss */
 #container .page .profile-view select {
   margin-bottom: 3em;
+  max-width: 200px;
+  padding-bottom: 3px;
+  padding-top: 5px;
+  line-height: 21px;
+  padding-left: 3px;
 }
-/* line 243, ../sass/screen.scss */
+/* line 248, ../sass/screen.scss */
 #container .page .profile-view .ui.segment {
   padding-top: 1.8em;
 }

@@ -68,10 +68,11 @@ var LandingView = Backbone.View.extend({
     },
     
     render: function() {
-
+                
         var compiledTpl = this.template(this.model.toJSON());
             
         app.slider.slidePage($(compiledTpl));
+        
     },
     
     slideMenu: function(){
@@ -118,9 +119,32 @@ var ProfileView = Backbone.View.extend({
     
     bindings: {},
     
+    dictionaries: {},
+    
     createDropDowns: function() {
-        var city = app.localDictionaries.getThisDictonary('city');
-        alert('city ' + city[1].value);
+        this.getDictionaries();
+    },
+    
+    getDictionaries: function() {
+        
+        this.dictionaries.city = app.localDictionaries.getThisDictonary('city');
+        this.dictionaries.country = app.localDictionaries.getThisDictonary('country');
+        this.dictionaries.subcategory = app.localDictionaries.getThisDictonary('subcategory');
+        this.dictionaries.category = app.localDictionaries.getThisDictonary('category');
+        this.dictionaries.salaryRange = app.localDictionaries.getThisDictonary('salary-range');
+        this.dictionaries.contractType = app.localDictionaries.getThisDictonary('contract-type');
+            
+    },
+    
+    populateDropDown: function(data, target) {
+      var html = '',
+          data = data || {};
+        
+      for(var i=0; i < data.length; i++){
+          html += '<option value=' + data[i].key + '>' + data[i].value + '</option>';
+      }
+        
+      this.$('.' + target).html(html);      
     },
     
     enableSaving: function() {
@@ -174,7 +198,6 @@ var ProfileView = Backbone.View.extend({
     createSwiper: function() {
         //create swiper to slide form, using plugin
         var mySwiper = new Swiper('.swiper-container',{
-            //Your options here:
             mode:'horizontal',
             //loop: true,
             pagination: '.pagination',
@@ -191,6 +214,13 @@ var ProfileView = Backbone.View.extend({
         //show form or brief?
         var action = this.isProfileEmpty()?'show':'hide';
         this.toggleEditLayer(action);
+        
+        this.populateDropDown(this.dictionaries.city, 'city');
+        this.populateDropDown(this.dictionaries.country, 'country');
+        this.populateDropDown(this.dictionaries.subcategory, 'subcategory');
+        this.populateDropDown(this.dictionaries.category , 'category');
+        this.populateDropDown(this.dictionaries.salaryRange, 'salaryRange');
+        this.populateDropDown(this.dictionaries.contractType, 'contractType');
 
         return this;
     },

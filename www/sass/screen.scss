@@ -232,11 +232,16 @@ select{
             .topcoat-button-bar{
                 float: right;
                 margin-right: 1.5em;
-                margin-top: 1em;
+                margin-top: 3em;
             }
             
             select{
                 margin-bottom: 3em;
+                max-width: 200px;
+                padding-bottom: 3px;
+                padding-top: 5px;
+                line-height: 21px;
+                padding-left: 3px;
             }
             
             .ui{

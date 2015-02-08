@@ -24,17 +24,14 @@
                   <div class="swiper-slide"> 
                     <!-- Any HTML content of the first slide goes here -->
                      <div class="ui  segment">
-                      <div><a class="ui label teal pointing below">Categorías</a></div>
-                         
-                         <select class="ctrl">
-                            <option value="" selected>Categorías</option>
-                            <option></option> 
+                         <div><a class="ui label teal pointing below">Categorías</a></div>
+                         <select class="ctrl category">
+
                          </select>
                         
-                         <div><a class="ui label teal pointing below">Subcategorías</a></div>
-                         
-                         <select class="ctrl">
-                            <option value="" selected>Subcategorías</option>
+                         <div class="subcategory-holder hide"><a class="ui label teal pointing below">Subcategorías</a></div>
+                         <select class="ctrl subcategory">
+             
                          </select>
                          
                       </div>
@@ -56,16 +53,22 @@
                   <div class="swiper-slide"> 
                     <!-- Any HTML content of the third slide goes here -->
                       <div class="ui  segment">
-                      <div><a class="ui label teal pointing below">Ciudad</a></div>
-                         
-                          <select class="ctrl">
-                            <option value="" selected>Ciudad</option>
-                         </select>
+                     
                         <div><a class="ui label teal pointing below">País</a></div>
+                        <select class="ctrl country">
+                           
+                        </select>
                           
-                         <select class="ctrl">
-                            <option value="" selected>País</option>
-                         </select>
+                        <div class="province-holder hide"><div><a class="ui label teal pointing below">Provincia</a></div>
+                        <select class="ctrl province">
+                           
+                        </select></div>
+                          
+                        <div class="city-holder hide"><div><a class="ui label teal pointing below">Ciudad</a></div>
+                        <select class="ctrl city">
+                           
+                        </select></div>
+                      
                       </div>
                   </div>
                   
@@ -75,8 +78,8 @@
                       <div class="ui  segment">
                       <div><a class="ui label teal pointing below">Rango salarial</a></div>
                          
-                         <select class="ctrl">
-                            <option value="" selected>Rango salarial</option>
+                         <select class="ctrl salaryRange">
+                            
                          </select>
                         
                       </div>
@@ -88,8 +91,8 @@
                       <div class="ui  segment">
                       <div><a class="ui label teal pointing below">Tipo de contrato</a></div>
                          
-                         <select class="ctrl">
-                            <option value="" selected>Contrato</option>
+                         <select class="ctrl contractType">
+                           
                          </select>
                         
                       </div>
