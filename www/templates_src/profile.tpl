@@ -11,7 +11,7 @@
                     <li>Palabras clave: <%=keyword%></li>
                         <li>Ciudad: <%=city%></li>
                             <li>País: <%=country%></li>
-                                <li>Rango salarial: <%=earning%></li>
+                                <li>Rango salarial: <%=salaryRange%></li>
                                     <li>Tipo de contrato: <%=contract%></li>
                                   
             </ul>
@@ -25,12 +25,13 @@
                     <!-- Any HTML content of the first slide goes here -->
                      <div class="ui  segment">
                          <div><a class="ui label teal pointing below">Categorías</a></div>
-                         <select class="ctrl category">
+                         <select class="category">
 
                          </select>
+                         
                         
                          <div class="subcategory-holder hide"><a class="ui label teal pointing below">Subcategorías</a>
-                         <select class="ctrl subcategory">
+                         <select class="subcategory">
              
                          </select></div>
                          
@@ -44,7 +45,7 @@
                      <div class="ui  segment">
                       <div><a class="ui label teal pointing below">Palabras Claves</a></div>
                         
-                         <input type="text" class="ctrl topcoat-text-input" placeholder="" value="">
+                         <input id="keyword" type="text" class="ctrl topcoat-text-input" placeholder="" value="">
                         
                       </div>
                   </div>
@@ -55,17 +56,18 @@
                       <div class="">
                      
                         <div><a class="ui label teal pointing below">País</a></div>
-                        <select class="ctrl country">
+                        <select class="country">
                            
                         </select>
+                        
                           
                         <div class="province-holder hide"><div><a class="ui label teal pointing below">Provincia</a></div>
-                        <select class="ctrl province">
+                        <select class="province">
                            
                         </select></div>
                           
                         <div class="city-holder hide"><div><a class="ui label teal pointing below">Ciudad</a></div>
-                        <select class="ctrl city">
+                        <select class="city">
                            
                         </select></div>
                       
@@ -78,7 +80,7 @@
                       <div class="ui  segment">
                       <div><a class="ui label teal pointing below">Rango salarial</a></div>
                          
-                         <select class="ctrl salaryRange">
+                         <select class="salaryRange">
                             
                          </select>
                         
@@ -91,10 +93,10 @@
                       <div class="ui  segment">
                       <div><a class="ui label teal pointing below">Tipo de contrato</a></div>
                          
-                         <select class="ctrl contractType">
+                         <select class="contractType">
                            
                          </select>
-                        
+                         
                       </div>
                   </div>                  
                   

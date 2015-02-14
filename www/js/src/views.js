@@ -108,26 +108,61 @@ var ProfileView = Backbone.View.extend({
         //skipping it out here since this view uses stickit
         //this.listenTo(this.model, 'change', this.render);
         this.createDropDowns();
+       
     },
     
     events: {
         'click .cancel': 'goHome',
-        'change select': 'enableSaving',
+        'change select': 'saveAttribute',
         'change select.category': 'showSubcategories',
         
         'change select.country': 'showProvince',
         'change select.province': 'showCity',
         
         'click input': 'enableSaving',
-        'click .edit': 'toggleEditLayer'
+        'click .edit': 'toggleEditLayer',
+        
+        'click .save': 'saveProfile'
     },
     
-    bindings: {},
+/*    bindings: {
+        '#category': 'category',
+        '#subcategory': 'subcategory',
+        '#keyword': 'keyword',
+        '#city': 'city',
+        '#country': 'country',
+        '#province': 'province',
+        '#salaryRange': 'salaryRange',
+        '#contract': 'contract'
+    },*/
     
     dictionaries: {},
     
+    saveProfile: function() {
+        
+        this.getKeyword();
+        
+        this.model.persistProfile();
+        
+        /*falta: change select actualiza el input oculto, este cambio esta stickeado con el modelo y debo actualizar modelo, yo entonces debo poder ver el valor en el modelo, al hacer click en grabar, debo recorrer el tojson y grabar en localStorage*/
+        
+        //now it should only call to a model meth where the values are taken from toJSON iterated
+        //and then set on localStorage. 
+        //a second method on teh view, then can be call to call the model attr, make a querystring, and return it to the result model, who will use it to update its results
+        
+    },
+    
+    getKeyword: function() {
+        var val = this.$('#keyword').val();
+        if(val !== ''){
+            this.model.set('keyword',val);
+    
+            alert('model: ' + this.model.get('keyword') );
+        }
+    },
+    
     createDropDowns: function() {
-        this.getDictionaries();
+        this.getDictionaries(); 
     },
     
     showSubcategories: function() {
@@ -152,7 +187,7 @@ var ProfileView = Backbone.View.extend({
     showCity: function() {
         var el = this.$('select.province'),
             val = el.find('option:selected').attr('id');
-         alert(val);
+         
         this.populateDropDown(this.dictionaries.city, 'city', val);
         
         this.$('.city-holder').removeClass('hide');
@@ -191,22 +226,21 @@ var ProfileView = Backbone.View.extend({
       this.$('.' + target).html(html);      
     },
     
-/*    populateOneDropDown: function(data, target, filterBy) {
-      var html = '',
-          data = data || {};
-        
-      for(var i=0; i < data.length; i++){
-          if(data[i].parent != filterBy){
-            continue;
-          };
-          html += '<option id="' + data[i].id + '" value="' + data[i].key + '">' + data[i].value + '</option>';
-      }
-        
-      this.$('.' + target).html(html);      
-    },*/
-    
     enableSaving: function() {
         this.$('.save').removeAttr('disabled');
+    },
+    
+    saveAttribute: function(event) {
+        this.$('.save').removeAttr('disabled');
+        
+        var el = event.target;
+        var name = el.className;
+        var node = el.nodeName;
+        var value = el.options[el.selectedIndex].value;
+        
+        this.model.set(name,value);
+    
+        //alert('model: ' + this.model.get(name) );
     },
     
     isProfileEmpty: function() {
@@ -265,8 +299,11 @@ var ProfileView = Backbone.View.extend({
     
     render: function() {
         //this.$el.html(this.template);
+        //model vals are linked to the brief profile layer, not to controls
         var compiledTpl = this.template(this.model.toJSON());
+
         app.slider.slidePage($(compiledTpl));
+        //stick then model vals to hidden inputs, not to controls
         //this.stickit(); 
         
         //show form or brief?
@@ -290,7 +327,6 @@ var ProfileView = Backbone.View.extend({
     }
     
 });
-
 
 var ResultSetView = Backbone.View.extend({
 

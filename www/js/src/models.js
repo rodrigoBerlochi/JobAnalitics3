@@ -13,7 +13,8 @@ var ProfileModel = Backbone.Model.extend({
         'keyword': '',
         'city': '',
         'country': '',
-        'earning': '',
+        'province': '',
+        'salaryRange': '',
         'contract': ''
     },
     
@@ -58,11 +59,21 @@ var ProfileModel = Backbone.Model.extend({
     },
     
     persistProfile: function(){
-        //localStorage or indexedDB
+        //persists between sessions
+        var data = this.toJSON();
+        alert('pers');
+        for(var key in data){
+            if(data.hasOwnProperty(key) && data[key] !== ''){
+                
+                localStorage.setItem(key, data[key]);
+                //alert('model ' + localStorage.getItem(key));
+            }
+        }
     },
     
     retrieveProfile: function() {
         //get from local storage
+        //on model init, if they exists, and populate model
     }
     
 });
