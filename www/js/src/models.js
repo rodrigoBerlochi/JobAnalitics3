@@ -61,7 +61,6 @@ var ProfileModel = Backbone.Model.extend({
     persistProfile: function(){
         //persists between sessions
         var data = this.toJSON();
-        alert('pers');
         for(var key in data){
             if(data.hasOwnProperty(key) && data[key] !== ''){
                 
@@ -70,10 +69,16 @@ var ProfileModel = Backbone.Model.extend({
             }
         }
     },
+    //get object from localStorage and set on model
+    retriveProfile: function() {
     
-    retrieveProfile: function() {
-        //get from local storage
-        //on model init, if they exists, and populate model
+    },
+    //get model attrs and create a query string
+    getProfileQuery: function() {
+        var model = this.toJSON;
+        var qs = $.param(model);
+        alert('model qs ' + 'blablabla');
+        return 
     }
     
 });

@@ -36,6 +36,7 @@ app.localDictionaries = (function() {
             'salary-range' : null,
             'contract-type':  null
         },
+        dictionariesReady = 0,
         dictionaryNames = ['category', 'country', 'salary-range', 'contract-type', 'subcategory', 'city', 'province'],
         methods = {};
     
@@ -56,6 +57,11 @@ app.localDictionaries = (function() {
                 },
                 success: function (data){
                     methods.updateProperty(data, name);
+                    dictionariesReady += 1;
+                    if(dictionariesReady == 7){
+                        //all the Dict are ready, so enable profile button now
+                        Events.trigger('LandingView:enableProfileBttn');
+                    }
                 },
                 error: function (err){
                     alert('Error occurred on retrieving profile options');

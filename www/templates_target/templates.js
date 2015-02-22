@@ -4,7 +4,7 @@ this["JST"]["templates_src/landing.tpl"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div>\r\n    <div class="landing">\r\n        <header><p class="heading heading1">JobAnalitics</p></header>\r\n        \r\n       <section class="dark">\r\n           <div><button class="topcoat-button--large--cta results" >Results</button></div>\r\n        </section>\r\n        \r\n        <section class="dark">\r\n            <div><button class="topcoat-button--large--cta profile" >Profile</button></div>\r\n        </section>\r\n    </div>\r\n</div>';
+__p += '<div>\r\n    <div class="landing">\r\n        <header><p class="heading heading1">JobAnalitics</p></header>\r\n        \r\n       <section class="dark">\r\n           <div><button class="topcoat-button--large--cta results">Results</button></div>\r\n        </section>\r\n        \r\n        <section class="dark">\r\n            <div><button class="topcoat-button--large--cta profile" disabled>\r\n                Profile\r\n                  <div class="ui active dimmer">\r\n                    <div class="ui loader"></div>\r\n                  </div>\r\n                </button>\r\n            </div>\r\n        </section>\r\n    </div>\r\n</div>';
 
 }
 return __p
