@@ -1,8 +1,11 @@
 var ProfileModel = Backbone.Model.extend({
     
     initialize: function() {
-    
-        //validation event
+        
+        //check if lcalStorage has profile values or is empty, an setup this model 
+        this.retriveProfile();
+        
+        //validation event, when and attr to set is evaluated as invalid, fires callback
         this.on('invalid', this.handleError, this);
         
     },
@@ -15,22 +18,22 @@ var ProfileModel = Backbone.Model.extend({
         'country': '',
         'province': '',
         'salaryRange': '',
-        'contract': ''
+        'contractType': ''
     },
     
-    url: function() {
+    /*url: function() {
     
         return url;
-    },
+    },*/
     
-    parse: function(response) {
+    /*parse: function(response) {
         
         var parsedResponse = {
         
         };
     
         return parsedResponse;
-    },
+    },*/
     
     validate: function(attrs) {
         //TODO: replace something with att name, see validation logic
@@ -60,25 +63,47 @@ var ProfileModel = Backbone.Model.extend({
     
     persistProfile: function(){
         //persists between sessions
+        //values are already in the model 
         var data = this.toJSON();
+        //iterate attrs, just own ones, and SAVE them on the local storage
         for(var key in data){
             if(data.hasOwnProperty(key) && data[key] !== ''){
-                
+
                 localStorage.setItem(key, data[key]);
-                //alert('model ' + localStorage.getItem(key));
+
             }
         }
     },
+    
     //get object from localStorage and set on model
     retriveProfile: function() {
-    
+         var data = this.toJSON();
+        
+         for(var key in data){
+            if(data.hasOwnProperty(key)){
+
+                var value = localStorage.getItem(key);
+                
+                if(value && value !== ''){
+                    
+                    this.set(key, value);
+                    
+                } else {
+                   // alert('No value on LS for: ' + key);
+                }
+
+            }
+         }
+        
     },
+    
     //get model attrs and create a query string
     getProfileQuery: function() {
-        var model = this.toJSON;
-        var qs = $.param(model);
-        alert('model qs ' + 'blablabla');
-        return 
+        var data = this.toJSON();
+        var query = $.param(data); 
+
+        //Notice it won't return the question mark at the beginning. Should be added by receptor. 
+        return $.trim(query);
     }
     
 });
@@ -87,9 +112,9 @@ var ResultSet = Backbone.Model.extend({
 
 });
 
-var ParamsModel = Backbone.Model.extend({
+/*var ParamsModel = Backbone.Model.extend({
 
-});
+});*/
 
 var LandingModel = Backbone.Model.extend({
     defaults: {
