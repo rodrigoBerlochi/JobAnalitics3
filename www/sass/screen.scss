@@ -209,6 +209,7 @@ select{
             
             h2{
                 padding-bottom: 30px;
+                clear: both;
             }
             
             .pagination {
@@ -231,8 +232,8 @@ select{
             
             .topcoat-button-bar{
                 float: right;
-                margin-right: 1.5em;
-                margin-top: 3em;
+                margin-right: 0.5em;
+                margin-bottom: 1.5em;
             }
             
             select{

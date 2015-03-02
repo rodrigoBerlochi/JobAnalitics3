@@ -30,7 +30,10 @@ var appRouter = Backbone.Router.extend({
         app.consoleLog('set view');
         app.consoleLog(query);
         
+         /*Just create one time each model and view, to avoid conflicts
+            Keep them accessible at app level, so using the -app- namespace*/   
         switch(query){
+        
             case 'profileView':
                 
                 if(app.profileModel === undefined){
@@ -41,7 +44,18 @@ var appRouter = Backbone.Router.extend({
                 }
                      
                 Events.trigger('ProfileView:show');
-                break;
+            break;
+                
+            case 'resultView':
+                if(app.resultSet === undefined){
+                    app.resultSet = new ResultSet();
+                }
+                if(app.resultSetView === undefined){
+                    app.resultSetView = new ResultSetView({model: app.resultSet});
+                }
+                     
+                Events.trigger('ResultSetView:show');
+            break;
         }
     }
     

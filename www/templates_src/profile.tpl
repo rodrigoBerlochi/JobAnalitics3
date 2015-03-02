@@ -1,6 +1,19 @@
 <div>
     <div class="profile-view">
         
+        <div class="topcoat-button-bar">
+            <div class="topcoat-button-bar__item">
+                <button class="topcoat-button--cta save" disabled>Grabar</button>
+            </div>
+            <div class="topcoat-button-bar__item">
+                <button class="topcoat-button--cta edit">Editar</button>
+            </div>
+            &nbsp;
+            <div class="topcoat-button-bar__item">
+                <button class="topcoat-button--quiet cancel">Cancelar</button>
+            </div>
+        </div>
+        
         <h2 class="heading heading2">Tu perfil laboral</h2>
         
         <div class="profile-brief">
@@ -10,9 +23,10 @@
                 <li>Subcategoría: <%=subcategory%></li>
                     <li>Palabras clave: <%=keyword%></li>
                         <li>Ciudad: <%=city%></li>
+                            <li>Provincia: <%=province%></li>
                             <li>País: <%=country%></li>
                                 <li>Rango salarial: <%=salaryRange%></li>
-                                    <li>Tipo de contrato: <%=contract%></li>
+                                    <li>Tipo de contrato: <%=contractType%></li>
                                   
             </ul>
         </div>
@@ -103,18 +117,7 @@
               </div>
         </div>
         
-        <div class="topcoat-button-bar">
-            <div class="topcoat-button-bar__item">
-                <button class="topcoat-button--cta save" disabled>Grabar</button>
-            </div>
-            <div class="topcoat-button-bar__item">
-                <button class="topcoat-button--cta edit">Editar</button>
-            </div>
-            &nbsp;
-            <div class="topcoat-button-bar__item">
-                <button class="topcoat-button--quiet cancel">Cancelar</button>
-            </div>
-        </div>
+
         
     </div>
 </div>

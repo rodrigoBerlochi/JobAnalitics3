@@ -192,18 +192,22 @@ var ProfileView = Backbone.View.extend({
         
         Events.trigger('LandingView:enableResultsBttn');
         
+        //Ask Router to show result page
+        Events.trigger('router:navigate', 'resultView');
+        
         //TODO remove it, just for testing, the QS should be asked from Result view
-        Events.trigger('ProfileView:getQueryString');
+        //Events.trigger('ProfileView:getQueryString');
         
     },
     
     getKeyword: function() {
-        
+       
         var val = this.$('#keyword').val();
+       
         if(val !== ''){
             this.model.set('keyword',val);
     
-            alert('profile view - check keyword from model, kw saved!: ' + this.model.get('keyword') );
+        //alert('profile view - check keyword from model, kw saved!: ' + this.model.get('keyword') );
         }
         
     },
@@ -378,15 +382,53 @@ var ProfileView = Backbone.View.extend({
     //service to return query string asking own model
     //call event to ask this service, from external modules
     //never call directly this model from an external view
-    getProfileQueryString: function() {
-        
+    getProfileQueryString: function() {     
         var qsProfile = this.model.getProfileQuery();
-        alert('view profile getProfileQueryString: ' + qsProfile);
-        return qsProfile;
+        alert('Profile, query string got from model: ' + qsProfile);
+        
+        Events.trigger('setProfileOnResults', qsProfile);
     }
     
 });
 
 var ResultSetView = Backbone.View.extend({
+    
+    el: '#container',
+    
+    template: JST['templates_src/results.tpl'],
+    
+    events: {
 
+    },
+    
+    initialize: function() {
+        alert('Initialize Result View');         
+        
+        Events.on('setProfileOnResults', this.setProfileOnResults, this);
+        //Events.on('ResultSetView:show', this.render, this);
+        Events.on('ResultSetView:show', this.populateModel, this);
+        Events.on('ResultSetView:render', this.render, this);
+    },
+    
+    populateModel: function() {
+        //get profile from Profile View in a query string format
+        Events.trigger('ProfileView:getQueryString');
+        //use that query string and model information, to ask model to update its attributes from Infojobs API
+        Events.trigger('FetchModel');
+    },
+    
+    setProfileOnResults: function(string) {
+        this.model.profile = string;
+        alert('Profile string saved on result model: ' + this.model.profile);
+    },
+    
+    render: function() {
+        alert('ResultSetView:render fired');
+        var compiledTpl = this.template( this.model.toJSON() );
+
+        app.slider.slidePage($(compiledTpl));
+        
+        return this;
+    }
+    
 });

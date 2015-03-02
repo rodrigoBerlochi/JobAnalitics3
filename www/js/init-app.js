@@ -16,7 +16,7 @@ window.app = window.app || {} ;         // there should only be one of these...
 app.slider = null;
 
 // Set to "true" if you want the console.log messages to appear.
-app.LOG = false ;
+app.LOG = true;
 
 app.consoleLog = function() {           // only emits console.log messages if app.LOG != false
     if( app.LOG ) {
@@ -98,8 +98,7 @@ app.initBackbone = function(){
     //init router
     var router = new appRouter();
     Backbone.history.start();
-    
-   
+
 };
 
 

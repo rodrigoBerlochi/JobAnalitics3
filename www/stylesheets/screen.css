@@ -291,12 +291,13 @@ select {
 /* line 210, ../sass/screen.scss */
 #container .page .profile-view h2 {
   padding-bottom: 30px;
+  clear: both;
 }
-/* line 214, ../sass/screen.scss */
+/* line 215, ../sass/screen.scss */
 #container .page .profile-view .pagination {
   margin-bottom: 20px;
 }
-/* line 217, ../sass/screen.scss */
+/* line 218, ../sass/screen.scss */
 #container .page .profile-view .swiper-pagination-switch {
   display: inline-block;
   width: 12px;
@@ -308,17 +309,17 @@ select {
   border: 1px solid #fff;
   cursor: pointer;
 }
-/* line 228, ../sass/screen.scss */
+/* line 229, ../sass/screen.scss */
 #container .page .profile-view .swiper-active-switch {
   border-color: #00b5ad !important;
 }
-/* line 232, ../sass/screen.scss */
+/* line 233, ../sass/screen.scss */
 #container .page .profile-view .topcoat-button-bar {
   float: right;
-  margin-right: 1.5em;
-  margin-top: 3em;
+  margin-right: 0.5em;
+  margin-bottom: 1.5em;
 }
-/* line 238, ../sass/screen.scss */
+/* line 239, ../sass/screen.scss */
 #container .page .profile-view select {
   margin-bottom: 3em;
   max-width: 200px;
@@ -327,7 +328,7 @@ select {
   line-height: 21px;
   padding-left: 3px;
 }
-/* line 248, ../sass/screen.scss */
+/* line 249, ../sass/screen.scss */
 #container .page .profile-view .ui.segment {
   padding-top: 1.8em;
 }

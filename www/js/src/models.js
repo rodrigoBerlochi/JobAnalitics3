@@ -108,13 +108,49 @@ var ProfileModel = Backbone.Model.extend({
     
 });
 
-var ResultSet = Backbone.Model.extend({
 
+
+
+var ResultSet = Backbone.Model.extend({
+    
+    defaults: {},
+    
+    url: function() {
+        alert('URL to ask = https://api.infojobs.net/api/1/offer?' + this.profile);
+        return 'https://api.infojobs.net/api/1/offer?' + this.profile;
+    },
+    
+    profile: '',
+    
+    initialize: function() {
+        Events.on('FetchModel', this.fetchModel, this);
+    },
+    
+    fetchModel: function() {
+        this.fetch({
+            beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', 'Basic NTYwZWYxNjE5YzJmNGJjY2FmODE0NDkzZmNjZmNmNjk6SUllSkVTOXF1aGdFTHFnVlVDUk5oSEQ2dGRiS1ppUEMzR2tjVjROSWpaZC9SMHNYNTQ=');
+            },
+            success: function(model, response) {
+                alert('success fetchModel');
+                //console.log(response);
+                //alert('Total results: ' +  this.get('totalResults') );
+                Events.trigger('ResultSetView:render');
+            },
+            error: function(model, response) {
+                 alert('error fetchModel');
+                 console.log(response);
+            }
+        });
+    }, 
+    
+    /*parse: function() {
+    
+    }*/
+    
 });
 
-/*var ParamsModel = Backbone.Model.extend({
 
-});*/
 
 var LandingModel = Backbone.Model.extend({
     defaults: {
