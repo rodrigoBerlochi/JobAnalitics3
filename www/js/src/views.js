@@ -274,8 +274,8 @@ var ProfileView = Backbone.View.extend({
         this.dictionaries.country = app.localDictionaries.getThisDictonary('country');
         this.dictionaries.subcategory = app.localDictionaries.getThisDictonary('subcategory');
         this.dictionaries.category = app.localDictionaries.getThisDictonary('category');
-        this.dictionaries.salaryRange = app.localDictionaries.getThisDictonary('salary-range');
-        this.dictionaries.contractType = app.localDictionaries.getThisDictonary('contract-type');
+        //this.dictionaries.salaryRange = app.localDictionaries.getThisDictonary('salary-range');
+        //this.dictionaries.contractType = app.localDictionaries.getThisDictonary('contract-type');
         this.dictionaries.province = app.localDictionaries.getThisDictonary('province');
             
     },
@@ -314,7 +314,11 @@ var ProfileView = Backbone.View.extend({
         var node = el.nodeName;
         var value = el.options[el.selectedIndex].value;
         
-        this.model.set(name,value);
+        if(value === ''){
+            return false;
+        }
+        
+        this.model.set(name, value);
     
         //alert('model saved this: ' + name + '-val: ' + this.model.get(name) );
     },
@@ -334,11 +338,15 @@ var ProfileView = Backbone.View.extend({
             }
         }
         alert('answer 1 ' + answer);
-        Events.trigger('LandingModel:profileStatus', answer);
         
+        Events.trigger('LandingModel:profileStatus', answer);
+        //returning for other kind of uses
+        return answer;
     },
     
-    toggleEditLayer: function(action) {
+    toggleEditLayer: function() {
+        
+        var action = this.isProfileEmpty()?'show':'hide';
         
         var brief = this.$('.profile-brief'),
             editing = this.$('.swiper-container'),
@@ -347,8 +355,6 @@ var ProfileView = Backbone.View.extend({
             search = this.$('.topcoat-button--cta.search'),
             clear = this.$('.topcoat-button--cta.clear');
         
-        //default value if it's called without params
-        action = typeof action !== 'string'?'show':action; 
             
         if(action === 'show'){
             
@@ -392,15 +398,14 @@ var ProfileView = Backbone.View.extend({
         //this.stickit(); 
         
         //show form or brief?
-        var action = this.isProfileEmpty()?'show':'hide';
-        this.toggleEditLayer(action);
+        this.toggleEditLayer();
         
         //this.populateDropDown(this.dictionaries.city, 'city');
         this.populateDropDown(this.dictionaries.country, 'country');
         //this.populateDropDown(this.dictionaries.subcategory, 'subcategory');
         this.populateDropDown(this.dictionaries.category , 'category');
-        this.populateDropDown(this.dictionaries.salaryRange, 'salaryRange');
-        this.populateDropDown(this.dictionaries.contractType, 'contractType');
+        //this.populateDropDown(this.dictionaries.salaryRange, 'salary-range');
+       // this.populateDropDown(this.dictionaries.contractType, 'contract-type');
 
         return this;
     },
@@ -422,6 +427,8 @@ var ProfileView = Backbone.View.extend({
     
 });
 
+
+
 /*
 *Result page view
 */
@@ -441,6 +448,8 @@ var ResultSetView = Backbone.View.extend({
         Events.on('setProfileOnResults', this.setProfileOnResults, this);
         Events.on('ResultSetView:show', this.populateModel, this);
         Events.on('ResultSetView:render', this.render, this);
+        
+       // this.setProfileFromLocal();
     },
     
     //Basic mechanism to get Job offers from the API: ask Profile module for the profile query
@@ -458,6 +467,17 @@ var ResultSetView = Backbone.View.extend({
         this.model.profile = string;
         alert('Profile string saved on result model: ' + this.model.profile);
     },
+    
+    //workaround to get profile string when Profile view-model has not already create
+    //in example, user asks for result page without enter never to profile
+    //expecting to use its saved profile
+    /*setProfileFromLocal: function() {
+        
+        if(this.model.profile === ''){
+            this.model.profile = localStorage.getItem('profileQuery');
+        }
+        
+    },*/
     
     //render template on the page, fired when the Fetch is done and succesful
     render: function() {

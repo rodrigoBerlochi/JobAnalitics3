@@ -28,8 +28,6 @@
                         <li>Ciudad: <%=city%></li>
                             <li>Provincia: <%=province%></li>
                             <li>País: <%=country%></li>
-                                <li>Rango salarial: <%=salaryRange%></li>
-                                    <li>Tipo de contrato: <%=contractType%></li>
                                   
             </ul>
         </div>
@@ -91,31 +89,7 @@
                       </div>
                   </div>
                   
-                   <!--Fourth Slide-->
-                  <div class="swiper-slide"> 
-                    <!-- Any HTML content of the third slide goes here -->
-                      <div class="ui  segment">
-                      <div><a class="ui label teal pointing below">Rango salarial</a></div>
-                         
-                         <select class="salaryRange">
-                            
-                         </select>
-                        
-                      </div>
-                  </div>
-                  
-                   <!--Fifth Slide-->
-                  <div class="swiper-slide"> 
-                    <!-- Any HTML content of the third slide goes here -->
-                      <div class="ui  segment">
-                      <div><a class="ui label teal pointing below">Tipo de contrato</a></div>
-                         
-                         <select class="contractType">
-                           
-                         </select>
-                         
-                      </div>
-                  </div>                  
+                          
                   
               </div>
         </div>

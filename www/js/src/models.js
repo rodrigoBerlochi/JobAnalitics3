@@ -16,24 +16,8 @@ var ProfileModel = Backbone.Model.extend({
         'keyword': '',
         'city': '',
         'country': '',
-        'province': '',
-        'salaryRange': '',
-        'contractType': ''
+        'province': ''
     },
-    
-    /*url: function() {
-    
-        return url;
-    },*/
-    
-    /*parse: function(response) {
-        
-        var parsedResponse = {
-        
-        };
-    
-        return parsedResponse;
-    },*/
     
     validate: function(attrs) {
         //TODO: replace something with att name, see validation logic
@@ -101,7 +85,8 @@ var ProfileModel = Backbone.Model.extend({
     getProfileQuery: function() {
         var data = this.toJSON();
         var query = $.param(data); 
-        
+        alert('setting PQ en LS: ' + query);
+        //set it on localstorage to be accesible when the result page is loaded before profile page
         localStorage.setItem('profileQuery', $.trim(query));
         
         //Notice it won't return the question mark at the beginning. Should be added by receptor. 
@@ -134,10 +119,14 @@ var ResultSet = Backbone.Model.extend({
     },
     
     lookForProfile: function() {
-        var profileQuery = localStorage.getItem('profileQuery');
-        if(profileQuery !== null){
-            this.profile = profileQuery;
+        
+        if(this.profile === ''){
+                var profileQuery = localStorage.getItem('profileQuery');
+                if(profileQuery !== null){
+                    this.profile = profileQuery;
+                }
         }
+
     },
     
     //call this method to retrieve a JSON response from the API, with Offer results

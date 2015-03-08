@@ -35,12 +35,10 @@ app.localDictionaries = (function() {
             subcategory : null,
             city : null,
             country : null,
-            province: null,
-            'salary-range' : null,
-            'contract-type':  null
+            province: null
         },
         dictionariesReady = 0,
-        dictionaryNames = ['category', 'country', 'salary-range', 'contract-type', 'subcategory', 'city', 'province'],
+        dictionaryNames = ['category', 'country', 'subcategory', 'city', 'province'],
         methods = {};
     
         methods.getDictionaries = function(){
@@ -55,7 +53,7 @@ app.localDictionaries = (function() {
             
             enableProfile = function() {
                     dictionariesReady += 1;
-                    if(dictionariesReady == 7){
+                    if(dictionariesReady == dictionaryNames.length){
                         //all the Dict are ready, so enable profile button now
                         Events.trigger('LandingView:enableProfileBttn');
                     }
