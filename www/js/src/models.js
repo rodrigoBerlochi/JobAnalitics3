@@ -101,7 +101,9 @@ var ProfileModel = Backbone.Model.extend({
     getProfileQuery: function() {
         var data = this.toJSON();
         var query = $.param(data); 
-
+        
+        localStorage.setItem('profileQuery', $.trim(query));
+        
         //Notice it won't return the question mark at the beginning. Should be added by receptor. 
         return $.trim(query);
     }
@@ -110,22 +112,38 @@ var ProfileModel = Backbone.Model.extend({
 
 
 
-
+/*
+*Results Model
+*/
 var ResultSet = Backbone.Model.extend({
     
     defaults: {},
     
+    //url is build with a fixed string (host) and the query string (profile)
     url: function() {
-        alert('URL to ask = https://api.infojobs.net/api/1/offer?' + this.profile);
-        return 'https://api.infojobs.net/api/1/offer?' + this.profile;
+        alert('URL to ask = https://api.infojobs.net/api/1/offer?facets=true&' + this.profile);
+        return 'https://api.infojobs.net/api/1/offer?facets=true&' + this.profile;
     },
     
+    //keep the profile query string stored in the data layer
     profile: '',
     
     initialize: function() {
         Events.on('FetchModel', this.fetchModel, this);
+        this.lookForProfile();
     },
     
+    lookForProfile: function() {
+        var profileQuery = localStorage.getItem('profileQuery');
+        if(profileQuery !== null){
+            this.profile = profileQuery;
+        }
+    },
+    
+    //call this method to retrieve a JSON response from the API, with Offer results
+    //it sets authorization headers and performs behind the scene, a Jquery AJAX call
+    //when it succeds, fires render page using actual data on this model
+    //otherwise communicate the error
     fetchModel: function() {
         this.fetch({
             beforeSend: function(xhr) {
@@ -144,9 +162,17 @@ var ResultSet = Backbone.Model.extend({
         });
     }, 
     
-    /*parse: function() {
-    
-    }*/
+    //after Fetch, gets the response and parse it extracting and ordering useful data
+    //parsedResponse 
+    parse: function(response) {
+        
+        return parsedResponse = {
+            facets : response.facets,
+            totalResults : response.totalResults,
+            offers : response.offers
+        };
+        
+    }
     
 });
 
@@ -154,16 +180,25 @@ var ResultSet = Backbone.Model.extend({
 
 var LandingModel = Backbone.Model.extend({
     defaults: {
-        resultsEnabled : false,
+        shouldResultsAble : false,
         profileEnabled : true
     },
     
     initialize: function() {
-        Events.trigger('queryProfileStatus', this.setResultButton, this);
-        Events.on('', this.setResultButton, this);
+        //Events.trigger('queryProfileStatus', this.setResultButton, this);
+        
+        //Events.on('', this.setResultButton, this);
+        Events.on('LandingModel:profileStatus', this.setProfileStatus, this);
     },
     
-    setResultButton: function() {
-        
+    checkLocalStorage: function() {
+        var empty = true; //= profile is empty, true
+        if(localStorage.length > 0){
+            empty = false;
+        }
+            alert('initial status ' + empty);
+        this.set('shouldResultsAble', empty);
+        return empty;
     }
+    
 });

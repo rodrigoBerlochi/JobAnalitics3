@@ -78,6 +78,8 @@ var LandingView = Backbone.View.extend({
         Events.on('LandingView:show', this.render, this);
         Events.on('LandingView:enableProfileBttn', this.enableProfileButton, this);
         Events.on('LandingView:enableResultsBttn', this.enableResultButton, this);
+        
+        //Events.trigger('ProfileView:checkProfile');
     },
     
     //set data context into the template and pass it to the slidePage plugin, who renders it and
@@ -90,7 +92,12 @@ var LandingView = Backbone.View.extend({
     
         //let's evaluate if result access could be able
         this.enableResultButton();
-
+        
+        if(app.dictionariesReady > 0){
+           //all the Dict are ready, so enable profile button now
+           Events.trigger('LandingView:enableProfileBttn');
+        }
+        
     },
     //show/hide left side menu
     slideMenu: function(){
@@ -113,13 +120,19 @@ var LandingView = Backbone.View.extend({
     },
     //check if Profile exists, then enable Results viewing
     enableResultButton: function() {
-        var isProfileEmpty = Events.trigger('ProfileView:checkProfile');
+            alert('enabling result bttn');
+        var isProfileEmpty = this.model.checkLocalStorage();
+        
         var bttn = this.$('.results');
+            alert('isProfileEmpty: ' + isProfileEmpty);
         
         if(isProfileEmpty){ //true, any profile is already saved
+            alert('no enabling');
             //don't show result button, we can't perform the API request
             bttn.attr('disabled','disabled');
+            
         } else {
+            alert('enabling!');
             //show button
             bttn.removeAttr('disabled');
         }
@@ -128,7 +141,7 @@ var LandingView = Backbone.View.extend({
     //called from a custom event fired on the app.localDictionaries
     enableProfileButton: function() {
          this.$('.profile').removeAttr('disabled');
-         this.$('.profile .dimmer').hide();
+         this.$('.dimmer.lnd').hide();
     }
     
 });
@@ -152,6 +165,10 @@ var ProfileView = Backbone.View.extend({
         Events.on('ProfileView:checkProfile', this.isProfileEmpty, this);
         Events.on('ProfileView:getQueryString', this.getProfileQueryString, this);
         
+        if(app.errorLoadingFilters){
+            this.enableSaving();
+        }
+        
         this.createDropDowns();
        
     },
@@ -163,26 +180,34 @@ var ProfileView = Backbone.View.extend({
         
         'change select.country': 'showProvince',
         'change select.province': 'showCity',
-        
+        'click .clear': 'clearingLocalStorage',
         'click input': 'enableSaving',
         'click .edit': 'toggleEditLayer',
-        
+        'click .search': 'searchResults',
         'click .save': 'saveProfile'
     },
     
-/*    bindings: {
-        '#category': 'category',
-        '#subcategory': 'subcategory',
-        '#keyword': 'keyword',
-        '#city': 'city',
-        '#country': 'country',
-        '#province': 'province',
-        '#salaryRange': 'salaryRange',
-        '#contract': 'contract'
-    },*/
-    
     //don't erase next attribute, will hold every dictionary
     dictionaries: {},
+    
+    //clear Profile params from local storage
+    clearingLocalStorage: function() {
+        var direction = confirm(app.resourceBundle.cleanStorage);
+        if(direction === true){
+            localStorage.clear();
+            window.location.hash =  '';
+       
+            Events.trigger('LandingView:enableProfileBttn');
+            Events.tri('LandingView:enableResultsBttn'); 
+        }
+    },
+    
+    searchResults: function() {
+        Events.trigger('LandingView:enableResultsBttn');
+        
+        //Ask Router to show result page
+        Events.trigger('router:navigate', 'resultView');
+    },
     
     saveProfile: function() {
         
@@ -190,13 +215,12 @@ var ProfileView = Backbone.View.extend({
         
         this.model.persistProfile();
         
-        Events.trigger('LandingView:enableResultsBttn');
+        
+        this.searchResults();
+        //Events.trigger('LandingView:enableResultsBttn');
         
         //Ask Router to show result page
-        Events.trigger('router:navigate', 'resultView');
-        
-        //TODO remove it, just for testing, the QS should be asked from Result view
-        //Events.trigger('ProfileView:getQueryString');
+        //Events.trigger('router:navigate', 'resultView');
         
     },
     
@@ -298,17 +322,19 @@ var ProfileView = Backbone.View.extend({
     isProfileEmpty: function() {
         //get model attributes
         var model = this.model.toJSON(),
-            key;
+            key, 
+            answer = true; //default value is true = empty
+        
         //iterate model attr
         for(key in model){
             //if each attr is empty, we won't return FALSE never, returning default value
             //if just one attr has value, we'll return FALSE = is not empty
             if(model.hasOwnProperty(key) && model[key] !== ''){
-                return false;
+                answer = false;
             }
         }
-        //default value is true = empty
-        return true;
+        alert('answer 1 ' + answer);
+        Events.trigger('LandingModel:profileStatus', answer);
         
     },
     
@@ -317,7 +343,9 @@ var ProfileView = Backbone.View.extend({
         var brief = this.$('.profile-brief'),
             editing = this.$('.swiper-container'),
             save = this.$('.topcoat-button--cta.save'),
-            edit = this.$('.topcoat-button--cta.edit');
+            edit = this.$('.topcoat-button--cta.edit'),
+            search = this.$('.topcoat-button--cta.search'),
+            clear = this.$('.topcoat-button--cta.clear');
         
         //default value if it's called without params
         action = typeof action !== 'string'?'show':action; 
@@ -328,16 +356,19 @@ var ProfileView = Backbone.View.extend({
             editing.removeClass('hide');
             save.removeClass('hide');
             edit.addClass('hide');
+            clear.addClass('hide');
+            search.addClass('hide');
             
             this.createSwiper();
             
         }else{ //'hide'
             
             editing.addClass('hide');
+            search.removeClass('hide');
             brief.removeClass('hide');
             save.addClass('hide');
             edit.removeClass('hide');
-        
+            clear.removeClass('hide');
         }
     },
     
@@ -391,6 +422,9 @@ var ProfileView = Backbone.View.extend({
     
 });
 
+/*
+*Result page view
+*/
 var ResultSetView = Backbone.View.extend({
     
     el: '#container',
@@ -405,11 +439,12 @@ var ResultSetView = Backbone.View.extend({
         alert('Initialize Result View');         
         
         Events.on('setProfileOnResults', this.setProfileOnResults, this);
-        //Events.on('ResultSetView:show', this.render, this);
         Events.on('ResultSetView:show', this.populateModel, this);
         Events.on('ResultSetView:render', this.render, this);
     },
     
+    //Basic mechanism to get Job offers from the API: ask Profile module for the profile query
+    //and ask its own model to request answer from the API
     populateModel: function() {
         //get profile from Profile View in a query string format
         Events.trigger('ProfileView:getQueryString');
@@ -417,18 +452,199 @@ var ResultSetView = Backbone.View.extend({
         Events.trigger('FetchModel');
     },
     
+    //event-callback fired from profile view, it gets the profile query string 
+    //and set it in its model
     setProfileOnResults: function(string) {
         this.model.profile = string;
         alert('Profile string saved on result model: ' + this.model.profile);
     },
     
+    //render template on the page, fired when the Fetch is done and succesful
     render: function() {
         alert('ResultSetView:render fired');
         var compiledTpl = this.template( this.model.toJSON() );
 
         app.slider.slidePage($(compiledTpl));
         
+        console.dir(this.model.toJSON());
+        
+        alert(this.model.get('totalResults') + ' son los resultados totales');
+        
+        //var rsltHeight = this.$('.results').innerHeight();
+        //this.$('#graphics').height(rsltHeight - 140);
+        
+        if(this.model.get('totalResults') == 0 ){
+            this.$('#graphics .msg').html(app.resourceBundle.noResults);
+        } else {
+            this.getFacetsValues();
+        }
+        
         return this;
+    },
+    
+    //iterates useful facets values from model
+    getFacetsValues: function() {
+    
+        var facets = this.model.get('facets'),
+            facetsLength = facets.length;
+        
+        for(var i=0; i<facetsLength; i++){
+            var key = facets[i].key, 
+                name = facets[i].name, 
+                values = facets[i].values;
+
+            
+            //one chart per facet node
+            this.createChartGraphics(key, name, values);
+            
+        }
+        
+        
+    },
+    
+    
+    //it works as a general hub articulating all function calling in order to create a graph
+    createChartGraphics: function(key, name, values) {
+        
+        this.createCanvas(key, name);
+        
+        //now that canvas is ready, create context
+        var context = this.createContext(key);
+        
+        var chartObject = this.createChartInstance(context);
+        
+        var data = this.createData(name, values);
+        
+        this.createGraphic(chartObject, data, name);
+    },
+    
+    //insert in the DOM a canvas for each facet
+    createCanvas: function(key, name) {
+        
+        //facetName = key, normalized name
+        this.$('#graphics').prepend('<h3>' + name + '</h3><canvas id="' + key +'" width="320" height="320"></canvas>');
+        
+    },
+    
+    //grab a canvas node and create a 2d context, returns that
+    createContext: function(key) {
+        
+        var ctxt = document.getElementById(key).getContext('2d');
+        
+        return ctxt;
+    },
+    
+    //instace a Chart object over the context, returns Chart object
+    createChartInstance: function(context) {
+    
+        return new Chart(context);
+        
+    },
+    
+    //gets facet item data, and set it into the object required by Chart.js
+    //returns data object
+    //name : string, user label
+    //values  : array[count, key, value]
+    /*createData: function(name, values) {
+        //for PIE
+        var data = [],
+            vLength = values.length;
+        
+        for(var i=0; i<vLength; i++){
+            data.push({
+                value: values[i].count,
+                color: this.randomColor(),
+                highlight: this.randomColor(),
+                label: values[i].value
+            });
+        }
+        
+        
+        return data;
+    },*/
+    createData: function(name, values) {
+        //for BAR chart
+      var data = {
+            labels: [],
+            datasets: [
+                {
+                    label: name,
+                    fillColor: this.randomColor(),
+                    strokeColor: this.randomColor(),
+                    highlightFill: this.randomColor(),
+                    highlightStroke: this.randomColor(),
+                    data: []
+                }
+            ]
+        };
+        
+        var vLength = values.length;
+        
+        for(var i=0; i<vLength; i++){
+            data.labels.push(values[i].value);
+            data.datasets[0].data.push(values[i].count);
+        }
+        
+        return data;
+    },
+    
+    
+    randomColor: function() {
+    
+        return '#'+Math.floor(Math.random()*16777215).toString(16);
+        
+    },
+    
+    //gets the data object and the graph instance, and creates the graphic in the DOM
+    createGraphic: function(chartObject, data, name) {
+    
+        chartObject.Bar(data, this.options(name));
+    
+    },
+    
+    options: function(name){ 
+        
+        return {
+                //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+                scaleBeginAtZero : true,
+
+                //Boolean - Whether grid lines are shown across the chart
+                scaleShowGridLines : true,
+
+                //String - Colour of the grid lines
+                scaleGridLineColor : "rgba(0,0,0,.08)",
+
+                //Number - Width of the grid lines
+                scaleGridLineWidth : 1,
+
+                //Boolean - Whether to show horizontal lines (except X axis)
+                scaleShowHorizontalLines: true,
+
+                //Boolean - Whether to show vertical lines (except Y axis)
+                scaleShowVerticalLines: true,
+            
+                // String - Scale label font colour
+                scaleFontColor: "#fff",
+
+                //Boolean - If there is a stroke on each bar
+                barShowStroke : true,
+
+                //Number - Pixel width of the bar stroke
+                barStrokeWidth : 2,
+
+                //Number - Spacing between each of the X value sets
+                barValueSpacing : 5,
+
+                //Number - Spacing between data sets within X values
+                barDatasetSpacing : 1,
+            
+                // Boolean - whether or not the chart should be responsive and resize when the browser does.
+                responsive: true,
+
+                //String - A legend template
+                legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+        };
     }
     
 });

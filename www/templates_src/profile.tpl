@@ -8,6 +8,9 @@
             <div class="topcoat-button-bar__item">
                 <button class="topcoat-button--cta edit">Editar</button>
             </div>
+            <div class="topcoat-button-bar__item">
+                <button class="topcoat-button--cta search">Buscar</button>
+            </div>
             &nbsp;
             <div class="topcoat-button-bar__item">
                 <button class="topcoat-button--quiet cancel">Cancelar</button>
@@ -17,7 +20,7 @@
         <h2 class="heading heading2">Tu perfil laboral</h2>
         
         <div class="profile-brief">
-            <h3 class="heading heading3">Parámetros ingresados</h3>
+            <h3 class="heading heading3">Parámetros ingresados <span class="clear">¿Borrar?</span></h3>
             <ul>
                 <li>Categoría: <%=category%></li>
                 <li>Subcategoría: <%=subcategory%></li>

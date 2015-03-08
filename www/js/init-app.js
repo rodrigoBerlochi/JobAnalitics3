@@ -25,6 +25,9 @@ app.consoleLog = function() {           // only emits console.log messages if ap
     }
 };
 
+//will turns True if profile filters can not be retrieved
+app.errorLoadingFilters = false;
+
 
 app.localDictionaries = (function() {
     var properties = {
@@ -48,6 +51,16 @@ app.localDictionaries = (function() {
         };
     
         methods.doRequest = function(name) {
+            name = name;
+            
+            enableProfile = function() {
+                    dictionariesReady += 1;
+                    if(dictionariesReady == 7){
+                        //all the Dict are ready, so enable profile button now
+                        Events.trigger('LandingView:enableProfileBttn');
+                    }
+            };
+            
             $.ajax({
                 url: 'https://api.infojobs.net/api/1/dictionary/' + name,
                 dataType: 'json',
@@ -57,14 +70,12 @@ app.localDictionaries = (function() {
                 },
                 success: function (data){
                     methods.updateProperty(data, name);
-                    dictionariesReady += 1;
-                    if(dictionariesReady == 7){
-                        //all the Dict are ready, so enable profile button now
-                        Events.trigger('LandingView:enableProfileBttn');
-                    }
+                    enableProfile();
                 },
                 error: function (err){
-                    alert('Error occurred on retrieving profile options');
+                    alert('Error occurred on retrieving profile options for ' + name);
+                    app.errorLoadingFilters = true;
+                    enableProfile();
                 }
             });
         };
@@ -80,11 +91,18 @@ app.localDictionaries = (function() {
     };
     
     return {
+        dictionariesReady: dictionariesReady,
         getDictionaries : methods.getDictionaries,
         getThisDictonary : methods.getThisDictonary
         //askNewDictionary: methods.doRequest
     };
 }());
+
+//translated string to hanlde via JS
+app.resourceBundle = {
+    noResults : 'No se han hallado resultados con los criterios especificados. Prueba con otros parámetros en tu Perfil.',
+    cleanStorage : '¿Desea borrar todos los datos de su perfil guardados en este dispositivo? Deberá ingresar un nuevo Perfil para volver a ver Resultados.'
+};
 
 app.initBackbone = function(){
     

@@ -9,7 +9,7 @@
         <section class="dark">
             <div><button class="topcoat-button--large--cta profile" disabled>
                 Profile
-                  <div class="ui active dimmer">
+                  <div class="ui active dimmer lnd">
                     <div class="ui loader"></div>
                   </div>
                 </button>

@@ -278,26 +278,32 @@ select {
   height: 100%;
   padding-top: 30px;
 }
-/* line 198, ../sass/screen.scss */
+/* line 196, ../sass/screen.scss */
+#container .page .profile-view .profile-brief .clear {
+  color: #00b5ad;
+  margin-left: 3px;
+  font-size: 12px;
+}
+/* line 202, ../sass/screen.scss */
 #container .page .profile-view .profile-brief ul li {
   line-height: 32px;
   text-align: left;
   padding-left: 10%;
 }
-/* line 205, ../sass/screen.scss */
+/* line 209, ../sass/screen.scss */
 #container .page .profile-view .profile-brief .heading {
   margin-bottom: 20px;
 }
-/* line 210, ../sass/screen.scss */
+/* line 214, ../sass/screen.scss */
 #container .page .profile-view h2 {
   padding-bottom: 30px;
   clear: both;
 }
-/* line 215, ../sass/screen.scss */
+/* line 219, ../sass/screen.scss */
 #container .page .profile-view .pagination {
   margin-bottom: 20px;
 }
-/* line 218, ../sass/screen.scss */
+/* line 222, ../sass/screen.scss */
 #container .page .profile-view .swiper-pagination-switch {
   display: inline-block;
   width: 12px;
@@ -309,17 +315,17 @@ select {
   border: 1px solid #fff;
   cursor: pointer;
 }
-/* line 229, ../sass/screen.scss */
+/* line 233, ../sass/screen.scss */
 #container .page .profile-view .swiper-active-switch {
   border-color: #00b5ad !important;
 }
-/* line 233, ../sass/screen.scss */
+/* line 237, ../sass/screen.scss */
 #container .page .profile-view .topcoat-button-bar {
   float: right;
   margin-right: 0.5em;
   margin-bottom: 1.5em;
 }
-/* line 239, ../sass/screen.scss */
+/* line 243, ../sass/screen.scss */
 #container .page .profile-view select {
   margin-bottom: 3em;
   max-width: 200px;
@@ -328,7 +334,38 @@ select {
   line-height: 21px;
   padding-left: 3px;
 }
-/* line 249, ../sass/screen.scss */
+/* line 253, ../sass/screen.scss */
 #container .page .profile-view .ui.segment {
   padding-top: 1.8em;
+}
+/* line 260, ../sass/screen.scss */
+#container .page .results header {
+  margin-top: 30px;
+}
+/* line 263, ../sass/screen.scss */
+#container .page .results .total-results {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+/* line 267, ../sass/screen.scss */
+#container .page .results .search {
+  margin-left: 5px;
+}
+/* line 270, ../sass/screen.scss */
+#container .page .results #graphics {
+  overflow-y: scroll;
+  height: 382px;
+}
+/* line 276, ../sass/screen.scss */
+#container .page .results #graphics .msg {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+/* line 281, ../sass/screen.scss */
+#container .page .results #graphics h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: left;
 }
