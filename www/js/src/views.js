@@ -5,7 +5,9 @@ var SideMenu = Backbone.View.extend({
 
     el: '.sidebar',
     
-    initialize: function() {},
+    initialize: function() {
+        Events.on('SideMenu:enableResultOption', this.enableResultOption, this);
+    },
     
     events: {
         'click .sb-results': 'goResults',
@@ -50,6 +52,15 @@ var SideMenu = Backbone.View.extend({
     
         this.$el.sidebar('toggle');
         
+    },
+    
+    //
+    enableResultOption: function(isProfileEmpty) {
+        if(isProfileEmpty){
+            this.$('.sb-results').addClass('hide');
+        }else{
+            this.$('.sb-results').removeClass('hide');
+        }
     }
     
 });
@@ -92,8 +103,8 @@ var LandingView = Backbone.View.extend({
     
         //let's evaluate if result access could be able
         this.enableResultButton();
-        
-        if(app.dictionariesReady > 0){
+             
+        if(app.profileView !== undefined){ 
            //all the Dict are ready, so enable profile button now
            Events.trigger('LandingView:enableProfileBttn');
         }
@@ -120,26 +131,30 @@ var LandingView = Backbone.View.extend({
     },
     //check if Profile exists, then enable Results viewing
     enableResultButton: function() {
-            alert('enabling result bttn');
+            //alert('enabling result bttn');
         var isProfileEmpty = this.model.checkLocalStorage();
         
         var bttn = this.$('.results');
-            alert('isProfileEmpty: ' + isProfileEmpty);
+            //alert('isProfileEmpty: ' + isProfileEmpty);
         
         if(isProfileEmpty){ //true, any profile is already saved
-            alert('no enabling');
+            //alert('no enabling');
             //don't show result button, we can't perform the API request
             bttn.attr('disabled','disabled');
             
         } else {
-            alert('enabling!');
+            //alert('enabling!');
             //show button
             bttn.removeAttr('disabled');
         }
+        
+        Events.trigger('SideMenu:enableResultOption', isProfileEmpty);
     },
     //enable profile button if dropdown options are ready
     //called from a custom event fired on the app.localDictionaries
     enableProfileButton: function() {
+        //console.log('enabling profile');
+        
          this.$('.profile').removeAttr('disabled');
          this.$('.dimmer.lnd').hide();
     }
@@ -198,7 +213,7 @@ var ProfileView = Backbone.View.extend({
             window.location.hash =  '';
        
             Events.trigger('LandingView:enableProfileBttn');
-            Events.tri('LandingView:enableResultsBttn'); 
+            Events.trigger('LandingView:enableResultsBttn'); 
         }
     },
     

@@ -52,7 +52,7 @@ app.localDictionaries = (function() {
             name = name;
             
             enableProfile = function() {
-                    dictionariesReady += 1;
+                    dictionariesReady += 1; console.log('dictionariesReady' + dictionariesReady);
                     if(dictionariesReady == dictionaryNames.length){
                         //all the Dict are ready, so enable profile button now
                         Events.trigger('LandingView:enableProfileBttn');

@@ -22,12 +22,12 @@
         <div class="profile-brief">
             <h3 class="heading heading3">Parámetros ingresados <span class="clear">¿Borrar?</span></h3>
             <ul>
-                <li>Categoría: <%=category%></li>
-                <li>Subcategoría: <%=subcategory%></li>
-                    <li>Palabras clave: <%=keyword%></li>
-                        <li>Ciudad: <%=city%></li>
-                            <li>Provincia: <%=province%></li>
-                            <li>País: <%=country%></li>
+                <li>Categoría: <b><%=category%></b></li>
+                <li>Subcategoría: <b><%=subcategory%></b></li>
+                    <li>Palabras clave: <b><%=keyword%></b></li>
+                        <li>Ciudad: <b><%=city%></b></li>
+                            <li>Provincia: <b><%=province%></b></li>
+                            <li>País: <b><%=country%></b></li>
                                   
             </ul>
         </div>

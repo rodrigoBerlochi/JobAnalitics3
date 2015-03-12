@@ -238,7 +238,7 @@ function(l){l.shapeArgs.fill=l.options.color||l.color})},drawPoints:l.column.pro
 
 // Load the fonts
 Highcharts.createElement('link', {
-	href: '//fonts.googleapis.com/css?family=Unica+One',
+	href: 'http://fonts.googleapis.com/css?family=Unica+One',
 	rel: 'stylesheet',
 	type: 'text/css'
 }, null, document.getElementsByTagName('head')[0]);

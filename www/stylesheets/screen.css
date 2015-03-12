@@ -214,7 +214,6 @@ select {
 /* line 130, ../sass/screen.scss */
 #container .page .heading {
   color: white;
-  font-family: "Source Sans Pro", "source-sans-pro", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 /* line 134, ../sass/screen.scss */
 #container .page .heading1 {
@@ -346,7 +345,6 @@ select {
 #container .page .results-view header {
   margin-top: 30px;
   font-family: "Source Sans Pro", "source-sans-pro", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-  padding: 0 10%;
   font-size: 20px;
   margin-bottom: 20px;
   opacity: 1;
