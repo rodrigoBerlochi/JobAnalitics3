@@ -30,7 +30,24 @@ function myEventHandler() {
     alert(str) ;
 }
 
+function notifyOfflineStatus(){
+    
+    var netState = navigator.connection.type;
+    
+    if(netState === Connection.NONE){
+        
+        navigator.notification.alert(
+            'Verifica tu conexión de red. Esta App requiere que estés conectado para funcionar.',
+            null,
+            'Sin conexión',
+            'Listo'
+        );
+        
+    }
+    
+};
 
+document.addEventListener("offline", notifyOfflineStatus, false);
 
 //      document.addEventListener("deviceready", myDeviceReadyListener, false);
 //      document.addEventListener("resume", myResumeListener, false);

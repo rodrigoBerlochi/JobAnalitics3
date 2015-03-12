@@ -36,9 +36,9 @@ this["JST"]["templates_src/results.tpl"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div>\r\n    <div class="results">\r\n        <header><p class="heading heading2">Resultados</p></header>\r\n        <p class="total-results">Resultados totales: ' +
+__p += '<div>\r\n    <div class="results-view">\r\n        <header><p><b>Hemos encontrado ' +
 ((__t = ( totalResults )) == null ? '' : __t) +
-'</p>\r\n        <div id="graphics">\r\n            <span class="msg"></span>\r\n        </div>    \r\n    </div>\r\n</div>';
+' empleos</b><br> con los criterios indicados en tu Perfil.</p></header>\r\n\r\n        <div id="graphics">\r\n            <span class="msg"></span>\r\n        </div>    \r\n    </div>\r\n</div>';
 
 }
 return __p

@@ -42,7 +42,7 @@ var SideMenu = Backbone.View.extend({
        this.closeSlide();
        
        Events.trigger('LandingView:enableProfileBttn');
-       Events.tri('LandingView:enableResultsBttn');    
+       Events.trigger('LandingView:enableResultsBttn');    
         
     },
     //close side menu
@@ -449,6 +449,7 @@ var ResultSetView = Backbone.View.extend({
         Events.on('ResultSetView:show', this.populateModel, this);
         Events.on('ResultSetView:render', this.render, this);
         
+
        // this.setProfileFromLocal();
     },
     
@@ -490,8 +491,6 @@ var ResultSetView = Backbone.View.extend({
         
         alert(this.model.get('totalResults') + ' son los resultados totales');
         
-        //var rsltHeight = this.$('.results').innerHeight();
-        //this.$('#graphics').height(rsltHeight - 140);
         
         if(this.model.get('totalResults') == 0 ){
             this.$('#graphics .msg').html(app.resourceBundle.noResults);
@@ -499,7 +498,21 @@ var ResultSetView = Backbone.View.extend({
             this.getFacetsValues();
         }
         
+        this.fireScrolling();
+        
         return this;
+    },
+    
+    //
+    fireScrolling: function(){
+        var wrapp = document.getElementById('graphics');
+        var v = this;
+        wrapp.addEventListener('touchmove', function(e){
+            if(e.changedTouches[0].pageY > 265){
+                v.$('header').addClass('reduced');
+            }
+            
+        }, false);
     },
     
     //iterates useful facets values from model
@@ -515,6 +528,11 @@ var ResultSetView = Backbone.View.extend({
 
             
             //one chart per facet node
+            /*key = normalized ID
+             *name = chart human name
+             *values =  array of objects, each object is X/Y point
+             *where [i].value is X, and [i].count is Y
+             */
             this.createChartGraphics(key, name, values);
             
         }
@@ -528,143 +546,78 @@ var ResultSetView = Backbone.View.extend({
         
         this.createCanvas(key, name);
         
-        //now that canvas is ready, create context
-        var context = this.createContext(key);
+        var data = this.createData(key, name, values);
         
-        var chartObject = this.createChartInstance(context);
-        
-        var data = this.createData(name, values);
-        
-        this.createGraphic(chartObject, data, name);
+        this.createGraphic(key, data);
+
     },
     
     //insert in the DOM a canvas for each facet
     createCanvas: function(key, name) {
         
-        //facetName = key, normalized name
-        this.$('#graphics').prepend('<h3>' + name + '</h3><canvas id="' + key +'" width="320" height="320"></canvas>');
-        
+        this.$('#graphics').prepend('<div id="' + key + '" style="width:100%; height:400px;"></div>');
+  
     },
     
-    //grab a canvas node and create a 2d context, returns that
-    createContext: function(key) {
+
+    createData: function(key, name, values) {
         
-        var ctxt = document.getElementById(key).getContext('2d');
+        name = name || '';
+        key = key || '';
+        values = values || {};
+        var serieName = 'Empleos';
+        var chartType = 'bar';
         
-        return ctxt;
-    },
-    
-    //instace a Chart object over the context, returns Chart object
-    createChartInstance: function(context) {
-    
-        return new Chart(context);
-        
-    },
-    
-    //gets facet item data, and set it into the object required by Chart.js
-    //returns data object
-    //name : string, user label
-    //values  : array[count, key, value]
-    /*createData: function(name, values) {
-        //for PIE
-        var data = [],
-            vLength = values.length;
-        
-        for(var i=0; i<vLength; i++){
-            data.push({
-                value: values[i].count,
-                color: this.randomColor(),
-                highlight: this.randomColor(),
-                label: values[i].value
-            });
-        }
-        
-        
-        return data;
-    },*/
-    createData: function(name, values) {
-        //for BAR chart
-      var data = {
-            labels: [],
-            datasets: [
-                {
-                    label: name,
-                    fillColor: this.randomColor(),
-                    strokeColor: this.randomColor(),
-                    highlightFill: this.randomColor(),
-                    highlightStroke: this.randomColor(),
-                    data: []
+        var data = {
+            
+            chart: {
+                type: chartType,
+                zoomType: 'xy'
+            },
+            title: {
+                text: name
+            },
+            xAxis: {
+                categories: []
+            },
+            yAxis: {
+                title: {
+                    text: name
                 }
-            ]
+            },
+            series: [{
+                name: serieName,
+                data: []
+            }]
+        
         };
+        
+        
+        //data.xAxis.categories[] -> value
+        //data.yAxis.series.data[] -> count
         
         var vLength = values.length;
         
         for(var i=0; i<vLength; i++){
-            data.labels.push(values[i].value);
-            data.datasets[0].data.push(values[i].count);
+            data.xAxis.categories.push(values[i].value);
+            data.series[0].data.push(values[i].count);
         }
         
         return data;
     },
     
     
-    randomColor: function() {
+    /*randomColor: function() {
     
         return '#'+Math.floor(Math.random()*16777215).toString(16);
         
-    },
+    },*/
     
-    //gets the data object and the graph instance, and creates the graphic in the DOM
-    createGraphic: function(chartObject, data, name) {
+    //
+    createGraphic: function(key, data) {
     
-        chartObject.Bar(data, this.options(name));
+        $('#' + key).highcharts(data);
     
-    },
-    
-    options: function(name){ 
-        
-        return {
-                //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-                scaleBeginAtZero : true,
-
-                //Boolean - Whether grid lines are shown across the chart
-                scaleShowGridLines : true,
-
-                //String - Colour of the grid lines
-                scaleGridLineColor : "rgba(0,0,0,.08)",
-
-                //Number - Width of the grid lines
-                scaleGridLineWidth : 1,
-
-                //Boolean - Whether to show horizontal lines (except X axis)
-                scaleShowHorizontalLines: true,
-
-                //Boolean - Whether to show vertical lines (except Y axis)
-                scaleShowVerticalLines: true,
-            
-                // String - Scale label font colour
-                scaleFontColor: "#fff",
-
-                //Boolean - If there is a stroke on each bar
-                barShowStroke : true,
-
-                //Number - Pixel width of the bar stroke
-                barStrokeWidth : 2,
-
-                //Number - Spacing between each of the X value sets
-                barValueSpacing : 5,
-
-                //Number - Spacing between data sets within X values
-                barDatasetSpacing : 1,
-            
-                // Boolean - whether or not the chart should be responsive and resize when the browser does.
-                responsive: true,
-
-                //String - A legend template
-                legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
-
-        };
     }
     
 });

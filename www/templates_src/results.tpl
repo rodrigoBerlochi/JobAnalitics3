@@ -1,7 +1,7 @@
 <div>
-    <div class="results">
-        <header><p class="heading heading2">Resultados</p></header>
-        <p class="total-results">Resultados totales: <%= totalResults %></p>
+    <div class="results-view">
+        <header><p><b>Hemos encontrado <%= totalResults %> empleos</b><br> con los criterios indicados en tu Perfil.</p></header>
+
         <div id="graphics">
             <span class="msg"></span>
         </div>    

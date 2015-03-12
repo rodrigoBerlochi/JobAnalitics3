@@ -198,6 +198,7 @@ app.initEvents = function() {
 document.addEventListener("app.Ready", app.initEvents, false) ;
 
 
+
 // Just a bunch of useful debug console.log() messages.
 // Runs after underlying device native code and webview/browser is ready.
 // The following is just for debug, not required; keep it if you want or get rid of it.
