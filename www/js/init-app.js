@@ -43,7 +43,7 @@ app.localDictionaries = (function() {
     
         methods.getDictionaries = function(){
             for(var i=0; i<dictionaryNames.length; i++){
-                //alert(dictionaryNames[i]);
+                
                 methods.doRequest(dictionaryNames[i]);    
             }
         };
@@ -71,7 +71,7 @@ app.localDictionaries = (function() {
                     enableProfile();
                 },
                 error: function (err){
-                    alert('Error occurred on retrieving profile options for ' + name);
+                    toastr.error(app.resourceBundle.errorGettingFilters + ' ' + name);
                     app.errorLoadingFilters = true;
                     enableProfile();
                 }
@@ -79,9 +79,9 @@ app.localDictionaries = (function() {
         };
     
         methods.updateProperty = function(data, name) {
-            //alert(data[1].value);
+            
             properties[name] = data;
-            //alert(properties.city[1].value);
+            
         };
     
     methods.getThisDictonary = function(name){
@@ -96,11 +96,19 @@ app.localDictionaries = (function() {
     };
 }());
 
+
 //translated string to hanlde via JS
 app.resourceBundle = {
     noResults : 'No se han hallado resultados con los criterios especificados. Prueba con otros parámetros en tu Perfil.',
-    cleanStorage : '¿Desea borrar todos los datos de su perfil guardados en este dispositivo? Deberá ingresar un nuevo Perfil para volver a ver Resultados.'
+    cleanStorage : '¿Desea borrar todos los datos de su perfil guardados en este dispositivo? Deberá ingresar un nuevo Perfil para volver a ver Resultados.',
+    fetchError: 'No se puede obtener resultados en este momento. Por favor, intentalo más tarde.',
+    searchFor: 'Buscando opciones de perfil en Infojobs',
+    createProfile: 'Crea un Perfil laboral para luego visualizar los gráficos de resultados',
+    locationLegend: 'Podrás encontrar más resultados en España, ya que InfoJobs es una bolsa de empleos de ese país.',
+    profileAlready: 'Ya haz creado un Perfil laboral. Puedes explorar con éste o modificarlo previamente.',
+    errorGettingFilters: 'Error al buscar filtros para '
 };
+
 
 app.initBackbone = function(){
     
@@ -118,6 +126,7 @@ app.initBackbone = function(){
 };
 
 
+
 // App init point (runs on custom app.Ready event from init-dev.js).
 // Runs after underlying device native code and webview/browser is ready.
 // Where you should "kick off" your application by initializing app events, etc.
@@ -130,16 +139,6 @@ app.initEvents = function() {
     app.consoleLog(fName, "entry") ;
 
     // NOTE: initialize your third-party libraries and event handlers
-
-    // initThirdPartyLibraryNumberOne() ;
-    // initThirdPartyLibraryNumberTwo() ;
-    // initThirdPartyLibraryNumberEtc() ;
-
-    // NOTE: initialize your application code
-
-    // initMyAppCodeNumberOne() ;
-    // initMyAppCodeNumberTwo() ;
-    // initMyAppCodeNumberEtc() ;
     
     //initi pageSlider, it manage page transitions
     app.slider = new PageSlider($("#container"));
@@ -151,20 +150,6 @@ app.initEvents = function() {
     FastClick.attach(document.body);
     
     app.initBackbone();
-    
-    
-   
-   /* $.ajax({
-        url: 'https://api.infojobs.net/api/1/dictionary/city',
-         dataType: 'json',
-                type: 'GET',
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader('Authorization', 'Basic NTYwZWYxNjE5YzJmNGJjY2FmODE0NDkzZmNjZmNmNjk6SUllSkVTOXF1aGdFTHFnVlVDUk5oSEQ2dGRiS1ppUEMzR2tjVjROSWpaZC9SMHNYNTQ=');
-                },
-        success: function(d){
-            alert(d);
-        }
-    });*/
 
     // NOTE: initialize your app event handlers, see app.js for a simple event handler example
 
@@ -178,9 +163,6 @@ app.initEvents = function() {
     else                                                            // else, assume touch events available
         evt = "touchend" ;                                          // not optimum, but works
 
-    /*el = document.getElementById("id_btnHello") ;
-    el.addEventListener(evt, myEventHandler, false) ;*/
-
     // NOTE: ...you can put other miscellaneous init stuff in this function...
     // NOTE: ...and add whatever else you want to do now that the app has started...
 
@@ -190,7 +172,25 @@ app.initEvents = function() {
     // app initialization is done
     // app event handlers are ready
     // exit to idle state and wait for app events...
-
+    
+    toastr.options = {
+              "closeButton": true,
+              "debug": false,
+              "newestOnTop": true,
+              "progressBar": false,
+              "positionClass": "toast-bottom-right",
+              "preventDuplicates": true,
+              "onclick": null,
+              "showDuration": "300",
+              "hideDuration": "1000",
+              "timeOut": "5000",
+              "extendedTimeOut": "1000",
+              "showEasing": "swing",
+              "hideEasing": "linear",
+              "showMethod": "fadeIn",
+              "hideMethod": "fadeOut"
+    }
+     
     app.consoleLog(fName, "exit") ;
 } ;
 

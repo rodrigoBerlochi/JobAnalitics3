@@ -191,24 +191,41 @@ select{
         .profile-view{
             height: 100%;
             padding-top: 30px;
+            overflow-y: scroll;
             
             .profile-brief{
-                .clear{
-                    color:  #00b5ad;
-                    margin-left: 3px;
-                    font-size: 12px;
+                height: 100%;
+                
+                .heading{
+                    text-align: left;
+                    padding-left: 10%;
+                    
+                    .clear{
+                        color:  #00b5ad;
+                        margin-left: 3px;
+                        font-size: 14px;
+                    }
                 }
+                
                 ul{
                     li{
                         line-height: 32px;
                         text-align: left;
                         padding-left: 10%;
+                        
+                        b{
+                            font-weight: bold;
+                        }
                     }
                 }
                 
                 .heading{
                     margin-bottom: 20px;
                 }
+            }
+            
+            .swiper-container{
+                height: 100%;
             }
             
             h2{

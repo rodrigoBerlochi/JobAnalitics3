@@ -54,7 +54,7 @@ var SideMenu = Backbone.View.extend({
         
     },
     
-    //
+    //result button must be enabled only if we have a query string to sent out to the API
     enableResultOption: function(isProfileEmpty) {
         if(isProfileEmpty){
             this.$('.sb-results').addClass('hide');
@@ -90,7 +90,9 @@ var LandingView = Backbone.View.extend({
         Events.on('LandingView:enableProfileBttn', this.enableProfileButton, this);
         Events.on('LandingView:enableResultsBttn', this.enableResultButton, this);
         
-        //Events.trigger('ProfileView:checkProfile');
+        toastr.warning(app.resourceBundle.searchFor);
+        toastr.info(app.resourceBundle.createProfile);
+        
     },
     
     //set data context into the template and pass it to the slidePage plugin, who renders it and
@@ -131,19 +133,19 @@ var LandingView = Backbone.View.extend({
     },
     //check if Profile exists, then enable Results viewing
     enableResultButton: function() {
-            //alert('enabling result bttn');
+           
         var isProfileEmpty = this.model.checkLocalStorage();
         
         var bttn = this.$('.results');
-            //alert('isProfileEmpty: ' + isProfileEmpty);
+           
         
         if(isProfileEmpty){ //true, any profile is already saved
-            //alert('no enabling');
+          
             //don't show result button, we can't perform the API request
             bttn.attr('disabled','disabled');
             
         } else {
-            //alert('enabling!');
+         
             //show button
             bttn.removeAttr('disabled');
         }
@@ -153,10 +155,10 @@ var LandingView = Backbone.View.extend({
     //enable profile button if dropdown options are ready
     //called from a custom event fired on the app.localDictionaries
     enableProfileButton: function() {
-        //console.log('enabling profile');
         
          this.$('.profile').removeAttr('disabled');
          this.$('.dimmer.lnd').hide();
+        
     }
     
 });
@@ -192,12 +194,11 @@ var ProfileView = Backbone.View.extend({
         'click .cancel': 'goHome',
         'change select': 'saveAttribute',
         'change select.category': 'showSubcategories',
-        
         'change select.country': 'showProvince',
         'change select.province': 'showCity',
         'click .clear': 'clearingLocalStorage',
         'click input': 'enableSaving',
-        'click .edit': 'toggleEditLayer',
+        'click .edit': 'handleToggleEditLayer',
         'click .search': 'searchResults',
         'click .save': 'saveProfile'
     },
@@ -207,9 +208,20 @@ var ProfileView = Backbone.View.extend({
     
     //clear Profile params from local storage
     clearingLocalStorage: function() {
+        
         var direction = confirm(app.resourceBundle.cleanStorage);
+        
         if(direction === true){
             localStorage.clear();
+            
+            var model = this.model.toJSON();
+            
+            
+            for(var key in model){
+                this.model.set(key, '');
+                console.log(this.model.get(key));
+            }
+            
             window.location.hash =  '';
        
             Events.trigger('LandingView:enableProfileBttn');
@@ -220,6 +232,8 @@ var ProfileView = Backbone.View.extend({
     searchResults: function() {
         Events.trigger('LandingView:enableResultsBttn');
         
+        toastr.info('Investigando los empleos para tu Perfil...');
+        
         //Ask Router to show result page
         Events.trigger('router:navigate', 'resultView');
     },
@@ -228,9 +242,9 @@ var ProfileView = Backbone.View.extend({
         
         this.getKeyword();
         
+        
         this.model.persistProfile();
-        
-        
+                
         this.searchResults();
         //Events.trigger('LandingView:enableResultsBttn');
         
@@ -245,8 +259,6 @@ var ProfileView = Backbone.View.extend({
        
         if(val !== ''){
             this.model.set('keyword',val);
-    
-        //alert('profile view - check keyword from model, kw saved!: ' + this.model.get('keyword') );
         }
         
     },
@@ -289,8 +301,6 @@ var ProfileView = Backbone.View.extend({
         this.dictionaries.country = app.localDictionaries.getThisDictonary('country');
         this.dictionaries.subcategory = app.localDictionaries.getThisDictonary('subcategory');
         this.dictionaries.category = app.localDictionaries.getThisDictonary('category');
-        //this.dictionaries.salaryRange = app.localDictionaries.getThisDictonary('salary-range');
-        //this.dictionaries.contractType = app.localDictionaries.getThisDictonary('contract-type');
         this.dictionaries.province = app.localDictionaries.getThisDictonary('province');
             
     },
@@ -329,39 +339,45 @@ var ProfileView = Backbone.View.extend({
         var node = el.nodeName;
         var value = el.options[el.selectedIndex].value;
         
+        
+        if(name === 'country' && value !== 'espana'){
+            
+             toastr.info(app.resourceBundle.locationLegend);
+        }
+        
         if(value === ''){
             return false;
         }
         
         this.model.set(name, value);
     
-        //alert('model saved this: ' + name + '-val: ' + this.model.get(name) );
     },
     
     isProfileEmpty: function() {
         //get model attributes
-        var model = this.model.toJSON(),
+        var model = localStorage.length,
             key, 
             answer = true; //default value is true = empty
         
-        //iterate model attr
-        for(key in model){
-            //if each attr is empty, we won't return FALSE never, returning default value
-            //if just one attr has value, we'll return FALSE = is not empty
-            if(model.hasOwnProperty(key) && model[key] !== ''){
-                answer = false;
-            }
+        if(model > 0){
+            answer = false;
         }
-        alert('answer 1 ' + answer);
-        
+                
         Events.trigger('LandingModel:profileStatus', answer);
         //returning for other kind of uses
         return answer;
     },
     
-    toggleEditLayer: function() {
+    handleToggleEditLayer: function() {
+        this.toggleEditLayer('show');
+    },
+    
+    //show profile brief if a profile exists, or hide it and show form to create profile
+    toggleEditLayer: function(direction) {
         
-        var action = this.isProfileEmpty()?'show':'hide';
+        var action = direction || (this.isProfileEmpty()?'show':'hide');
+    
+        //var action = this.isProfileEmpty()?'show':'hide';
         
         var brief = this.$('.profile-brief'),
             editing = this.$('.swiper-container'),
@@ -390,6 +406,8 @@ var ProfileView = Backbone.View.extend({
             save.addClass('hide');
             edit.removeClass('hide');
             clear.removeClass('hide');
+            
+            toastr.info(app.resourceBundle.profileAlready);
         }
     },
     
@@ -415,12 +433,10 @@ var ProfileView = Backbone.View.extend({
         //show form or brief?
         this.toggleEditLayer();
         
-        //this.populateDropDown(this.dictionaries.city, 'city');
+   
         this.populateDropDown(this.dictionaries.country, 'country');
-        //this.populateDropDown(this.dictionaries.subcategory, 'subcategory');
+    
         this.populateDropDown(this.dictionaries.category , 'category');
-        //this.populateDropDown(this.dictionaries.salaryRange, 'salary-range');
-       // this.populateDropDown(this.dictionaries.contractType, 'contract-type');
 
         return this;
     },
@@ -435,7 +451,6 @@ var ProfileView = Backbone.View.extend({
     //never call directly this model from an external view
     getProfileQueryString: function() {     
         var qsProfile = this.model.getProfileQuery();
-        alert('Profile, query string got from model: ' + qsProfile);
         
         Events.trigger('setProfileOnResults', qsProfile);
     }
@@ -458,7 +473,6 @@ var ResultSetView = Backbone.View.extend({
     },
     
     initialize: function() {
-        alert('Initialize Result View');         
         
         Events.on('setProfileOnResults', this.setProfileOnResults, this);
         Events.on('ResultSetView:show', this.populateModel, this);
@@ -481,7 +495,6 @@ var ResultSetView = Backbone.View.extend({
     //and set it in its model
     setProfileOnResults: function(string) {
         this.model.profile = string;
-        alert('Profile string saved on result model: ' + this.model.profile);
     },
     
     //workaround to get profile string when Profile view-model has not already create
@@ -497,15 +510,12 @@ var ResultSetView = Backbone.View.extend({
     
     //render template on the page, fired when the Fetch is done and succesful
     render: function() {
-        alert('ResultSetView:render fired');
+       
         var compiledTpl = this.template( this.model.toJSON() );
 
         app.slider.slidePage($(compiledTpl));
         
         console.dir(this.model.toJSON());
-        
-        alert(this.model.get('totalResults') + ' son los resultados totales');
-        
         
         if(this.model.get('totalResults') == 0 ){
             this.$('#graphics .msg').html(app.resourceBundle.noResults);
@@ -518,7 +528,7 @@ var ResultSetView = Backbone.View.extend({
         return this;
     },
     
-    //
+    //prioritize graphic are over header on the available screen size
     fireScrolling: function(){
         var wrapp = document.getElementById('graphics');
         var v = this;
@@ -567,7 +577,7 @@ var ResultSetView = Backbone.View.extend({
 
     },
     
-    //insert in the DOM a canvas for each facet
+    //insert in the DOM a div holder for each canvas-facet
     createCanvas: function(key, name) {
         
         this.$('#graphics').prepend('<div id="' + key + '" style="width:100%; height:400px;"></div>');
@@ -606,10 +616,6 @@ var ResultSetView = Backbone.View.extend({
             }]
         
         };
-        
-        
-        //data.xAxis.categories[] -> value
-        //data.yAxis.series.data[] -> count
         
         var vLength = values.length;
         

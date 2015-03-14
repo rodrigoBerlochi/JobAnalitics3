@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "https://edge-intel.s3.amazonaws.com/jsapp/production/release-2014-ww45/template-a-blank-cordova/sample.zip",
       "projectGuid": "f472e993-f8cb-4dd2-afe1-3acedc7902c0",
-      "lastModifiedDate": 1425230349327,
+      "lastModifiedDate": 1426284874352,
       "creationDate": 1420305176006
     },
     "sourceDirectory": "www",
@@ -130,8 +130,62 @@
             "origin": "*"
           }
         ],
-        "icons_": [],
-        "splashes_": [],
+        "icons_": [
+          {
+            "relPath": "res/drawable-ldpi/icon.png",
+            "density": "ldpi",
+            "height": 36,
+            "width": 36
+          },
+          {
+            "relPath": "res/drawable-mdpi/icon.png",
+            "density": "mdpi",
+            "height": 48,
+            "width": 48
+          },
+          {
+            "relPath": "res/drawable-xhdpi/icon.png",
+            "density": "xhdpi",
+            "height": 96,
+            "width": 96
+          },
+          {
+            "relPath": "res/72-72.png",
+            "density": "hdpi",
+            "height": 72,
+            "width": 72
+          }
+        ],
+        "splashes_": [
+          {
+            "relPath": "splash1.jpg",
+            "density": "ldpi",
+            "height": 426,
+            "width": 320,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "splash2.jpg",
+            "density": "mdpi",
+            "height": 470,
+            "width": 320,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "splash3.jpg",
+            "density": "hdpi",
+            "height": 640,
+            "width": 480,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "splash4.jpg",
+            "density": "xhdpi",
+            "height": 960,
+            "width": 720,
+            "orientation": "portrait"
+          }
+        ],
         "addlPermissions_": "",
         "excludedLibraries_": "",
         "iosProvs_": [],
