@@ -185,7 +185,23 @@ select{
                 }
                
             }
+         
+            @media all and (orientation:landscape){
+                header{
+                        height: 67%;
+                    }
 
+                    section{
+                        width: 50%;
+                        float: left;
+                        height: auto;
+
+                        div{
+                            padding: 0px;
+                        }
+                }
+            }
+            
         }
         
         .profile-view{

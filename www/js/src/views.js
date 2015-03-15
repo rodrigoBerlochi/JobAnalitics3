@@ -93,6 +93,7 @@ var LandingView = Backbone.View.extend({
         toastr.warning(app.resourceBundle.searchFor);
         toastr.info(app.resourceBundle.createProfile);
         
+        
     },
     
     //set data context into the template and pass it to the slidePage plugin, who renders it and

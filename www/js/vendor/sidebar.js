@@ -971,14 +971,14 @@ $.fn.sidebar.settings = {
 
   defaultTransition : {
     computer: {
-      left   : 'uncover',
-      right  : 'uncover',
+      left   : 'overlay',
+      right  : 'overlay',
       top    : 'overlay',
       bottom : 'overlay'
     },
     mobile: {
-      left   : 'uncover',
-      right  : 'uncover',
+      left   : 'overlay',
+      right  : 'overlay',
       top    : 'overlay',
       bottom : 'overlay'
     }
