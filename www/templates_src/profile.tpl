@@ -3,7 +3,7 @@
         
         <div class="topcoat-button-bar">
             <div class="topcoat-button-bar__item">
-                <button class="topcoat-button--cta save" disabled>Grabar</button>
+                <button class="topcoat-button--cta save" disabled>Guardar</button>
             </div>
             <div class="topcoat-button-bar__item">
                 <button class="topcoat-button--cta edit">Editar</button>

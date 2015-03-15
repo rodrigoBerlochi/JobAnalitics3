@@ -3,12 +3,12 @@
         <header><p class="heading heading1">JobAnalitics</p></header>
         
        <section class="dark">
-           <div><button class="topcoat-button--large--cta results">Results</button></div>
+           <div><button class="topcoat-button--large--cta results">Resultados</button></div>
         </section>
         
         <section class="dark">
             <div><button class="topcoat-button--large--cta profile" disabled>
-                Profile
+                Perfil laboral
                   <div class="ui active dimmer lnd">
                     <div class="ui loader"></div>
                   </div>
